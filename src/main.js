@@ -146,6 +146,16 @@ staticSculpt.position.y += -objectsDistance * 0
 //ambiLight.position.set(5, 5, 5)
 //scene.add(ambiLight)
 
+// Progress Bar
+//var progress = document.createElement('div');
+//var progressBar = document.createElement('div');
+
+//progress.appendChild(progressBar);
+
+//document.body.appendChild(progress);
+
+//var manager
+
 /**
  * Scroll
  */
