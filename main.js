@@ -39,8 +39,31 @@ const scene = new THREE.Scene();
 const pmremGenerator = new THREE.PMREMGenerator( renderer );
 scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
 
+// Progress Bar
+const loadingManager = new THREE.LoadingManager();
+loadingManager.onStart = function(url, item, total) {
+  console.log('Started loading: ${url}');
+}
+
+const progressBar = document.getElementById('progress-bar');
+
+loadingManager.onProgress = function(url, pageloaded, total) {
+  progressBar.value = (pageloaded / total) * 100;
+}
+
+const progressBarContainer = document.querySelector('.progress-bar-container');
+
+loadingManager.onLoad = function() {
+  progressBarContainer.style.display = 'none';
+}
+
+//loadingManager.onError = function() {
+//  console.error('Loading error: ${url}');
+//}
+
+
 // 3D model loader
-const loader = new GLTFLoader();
+const loader = new GLTFLoader(loadingManager);
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('/js/libs/draco/gltf/');
@@ -146,15 +169,6 @@ staticSculpt.position.y += -objectsDistance * 0
 //ambiLight.position.set(5, 5, 5)
 //scene.add(ambiLight)
 
-// Progress Bar
-//var progress = document.createElement('div');
-//var progressBar = document.createElement('div');
-
-//progress.appendChild(progressBar);
-
-//document.body.appendChild(progress);
-
-//var manager
 
 /**
  * Scroll
