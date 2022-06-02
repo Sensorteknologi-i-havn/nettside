@@ -11,6 +11,24 @@ const sizes = {
   height: window.innerHeight
 }
 
+// Progress Bar
+const loadingManager = new THREE.LoadingManager();
+loadingManager.onStart = function(url, item, total) {
+  console.log('Started loading: ${url}');
+}
+
+const progressBar = document.getElementById('progress-bar');
+
+loadingManager.onProgress = function(url, pageloaded, total) {
+  progressBar.value = (pageloaded / total) * 100;
+}
+
+const progressBarContainer = document.querySelector('.progress-bar-container');
+
+loadingManager.onLoad = function() {
+  progressBarContainer.style.display = 'none';
+}
+
 
 // Canvas
 const canvas = document.querySelector('bg');
@@ -38,24 +56,6 @@ controls.enableDamping = true;
 const scene = new THREE.Scene();
 const pmremGenerator = new THREE.PMREMGenerator( renderer );
 scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
-
-// Progress Bar
-const loadingManager = new THREE.LoadingManager();
-loadingManager.onStart = function(url, item, total) {
-  console.log('Started loading: ${url}');
-}
-
-const progressBar = document.getElementById('progress-bar');
-
-loadingManager.onProgress = function(url, pageloaded, total) {
-  progressBar.value = (pageloaded / total) * 100;
-}
-
-const progressBarContainer = document.querySelector('.progress-bar-container');
-
-loadingManager.onLoad = function() {
-  progressBarContainer.style.display = 'none';
-}
 
 //loadingManager.onError = function() {
 //  console.error('Loading error: ${url}');
