@@ -21,6 +21,7 @@ let model;
 let modelY;
 let earthModel;
 
+
 // Progress Bar
 const loadingManager = new THREE.LoadingManager();
 loadingManager.onStart = function(url, item, total) {
@@ -41,7 +42,7 @@ loadingManager.onLoad = function() {
 
 
 // Canvas
-const canvas = document.querySelector('bg');
+const canvas = document.querySelector('#bg');
 
 // Camera
 // Mimics human eyeball.
@@ -60,7 +61,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 //Orbit Controls
-const controls = new OrbitControls( camera, renderer.domElement );
+//const controls = new OrbitControls( camera, renderer.domElement );
 
 
 // Scence == container
@@ -87,7 +88,7 @@ loader.setDRACOLoader(dracoLoader);
     //scene.add(mesh);
     
     model = gltf.scene;
-    model.position.set( 2.5, -9, 25 );
+    model.position.set( 0, 0, 0 );
     model.rotation.set(0.2, 2.8, 0);
     model.scale.set( 0.03, 0.03, 0.03 );
     modelY = model.position.y
@@ -108,7 +109,7 @@ loader.setDRACOLoader(dracoLoader);
   loader.load('/models/low_poly_earth.glb', function (gltf) {
     
     earthModel = gltf.scene;
-    earthModel.position.set( 2, -1, 25 );
+    earthModel.position.set( 2, -1, 20 );
     earthModel.rotation.set(0, 0, 0);
     earthModel.scale.set( 2, 2, 2 );
     scene.add( earthModel);
@@ -211,9 +212,9 @@ camera.position.setZ(30)
 // staticSculpt.position.y += -objectsDistance * 0
 
 // Light
-const ambiLight = new THREE.AmbientLight()
-ambiLight.position.set(5, 5, 5)
-scene.add(ambiLight)
+//const ambiLight = new THREE.AmbientLight()
+//ambiLight.position.set(5, 5, 5)
+//scene.add(ambiLight)
 
 /**
  * Scroll
@@ -304,8 +305,8 @@ function animate() {
   TWEEN.update();
   
   camera.position.y = -scrollY * 2.5 / sizes.height;
-  earthModel.rotation.y += 0.0005 
-  controls.update();
+  earthModel.rotation.y += 0.0005;
+  //controls.update();
   //camera.position.z = defaultCamZ;
   
   
