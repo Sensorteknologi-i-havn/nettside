@@ -97,8 +97,8 @@ loader.setDRACOLoader(dracoLoader);
     
     model = gltf.scene;
 
-    model.position.set( 3, -9, 26 );
-    model.rotation.set(0, 1, 0);
+    model.position.set( 2, -1, 26 );
+    model.rotation.set(0, 0, 0);
     model.scale.set( 0.02, 0.02, 0.02 );
     modelY = model.position.y
     scene.add( model );
@@ -117,7 +117,7 @@ loader.setDRACOLoader(dracoLoader);
   loader.load('/models/earth/scene.gltf', function (gltf) {
     
     earthModel = gltf.scene;
-    earthModel.position.set( 1, -2.5, 28 );
+    earthModel.position.set( 1.5, -10, 28 );
     earthModel.rotation.set(0, 0, 0);
     earthModel.scale.set( 1, 1, 1 );
     scene.add( earthModel);
@@ -341,7 +341,7 @@ function mouseRotate() {
 
   if (model) {
     
-    model.rotation.y += 0.3 * ( targetX - model.rotation.y );
+    model.rotation.y += 0.3 * ( targetX - model.rotation.y ) +0.6;
     
   }
 
