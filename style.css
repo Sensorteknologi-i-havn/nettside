@@ -31,22 +31,41 @@ margin-left: 30px;
   margin-top: 200px;
 }
 
-h1, h2, h3 {
+h1, h2{
   font-family: futura-pt,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;;
   font-weight: 700;
+  line-height: 1.45em;
   font-style: normal;
 }
 
-p, li{
-font-family: futura-pt,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;;
-font-size: 16px;
+p.a, p.b, li{
+  font-family: futura-pt,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;;
+  font-size: 16px;
+  line-height: 1.45em;
+  font-style: normal;
+}
+
+p.a, li{
 font-style: normal;
-line-height: 1.45em;
+}
+
+p.b {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+p.b:hover {
+  background-color: red;
 }
 
 p{
 margin-bottom: 10px;
 }
+
+ul{
+  list-style-type: square;
+}
+
 
 header {
   background: var(--dark-bg); /* svart bakgrunn på header*/
