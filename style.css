@@ -112,81 +112,37 @@ label {
   text-align: center;
 }
 
-.circle{
-    border:1px solid white;
-    background-color: white;
-    width:30px;
-    height:30px;
-    border-radius:100%;
-    transform: translate(200px, 250px);
-    margin:5px;
-  }
-  .circle.exit {
-    transform: translate(200px, 250px) rotate(45deg);
-    display: none;
-  }
-  .circle:hover {
-    width:33px;
-    height:33px;
-    background: black;
-    border-color: black;
-  }
-  
-  .circle.plus:before,
-  .circle.plus:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background:black;
-  }
-  .circle.plus:hover:before,
-  .circle.plus:hover:after,
-  .circle.exit:hover:before,
-  .circle.exit:hover:after {
-    background: white;
-    border-color: white;
-  }
-  
-  .circle.plus:hover ~ .lable {
-    display: block;
-  }
-  
-  .circle.plus:before{
-      width: 2px;
-      margin: 2px auto;
-  
-  }
-  .circle.plus:after{
-      margin: auto 2px;
-      height: 2px;
-  }
-  
-  .circle.exit:before,
-  .circle.exit:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background:black;
-  
-  }
-  .circle.exit:before{
-      width: 2px;
-      margin: 2px auto;
-  }
-  .circle.exit:after{
-      margin: auto 2px;
-      height: 2px;
-  }
 
+.norkart-footer {
+  color: white;
+  margin-top: 10px;
+  text-decoration: underline;
+}
 
-  @media screen and (max-width: 800px) {
-    body {
-    width: 100%
-    }
+.img-thumbnail {
+  padding: .25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: .25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.social-link {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 50%;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 800px) {
+  body {
+  width: 100%
   }
+}
