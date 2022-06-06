@@ -13,6 +13,7 @@
       
   </head>
   <body>
+  
 
     <!-- Navigation bar -->
     <nav class="navbar navbar-inverse">
@@ -22,16 +23,18 @@
           </a>
       </div>
     </nav>
-    
-      <canvas id = "bg"></canvas>
-      <script type="module" src="/main.js"></script>
 
+      <script type="module" src="/main.js"></script>
+      <canvas id = "bg" ></canvas> 
+    
+      <main>
       <div class="stop-scrolling"></div>
       <div class="progress-bar-container">
         <label for="progress-bar">Loading...</label>
         <progress id="progress-bar" value="0" max="100"></progress>
       </div>
-    
+
+     
         <section id="header-content">
             <div class="header container text-center" id="introtext">
               <div class="row">
@@ -48,6 +51,10 @@
                 <br>
                 <h4>Digitalisering som forenkler og effektiviserer</h4>
                 <p>Prosjektet sensorteknologi i havn er en prosjektsatsning mellom flere aktører, Kommunesektorens organisasjon (KS) er prosjekteier. Norkart har fått ansvar for å kartlegge brukerbehovene knyttet til sensorteknologi ved norske havner i forbindelse med det store satsningsprosjektet «Norsk digital havneinfrastruktur».</p>
+
+                <span class="circle plusEarth" id="plusbutton"></span>
+                <span class="circle exitEarth" id="exitbutton"></span>
+
               </div>
 
               <div class="col-6">
@@ -136,10 +143,12 @@
                 <p>På nasjonal basis er det flere prosjekter som benytter seg av sensorteknologi og tingenes internett. Disse prosjektet går over diverse sektorer og refererer til både IoT-teknologier og smartbyer. De nasjonale prosjektene befinner seg i Kristiansand og Stavanger og er en god pekepinn på hvordan teknologiene kan bidra til å forbedre.</p>
                 <br>
                 <p>// Trykk på plusstegn for mer informasjon.</p>
+                
               </div>
 
               <div class="col-6">
-                space - her skal 3d modellen inn/synes
+                <span class="circle plus" id="plusbutton"></span>
+                <span class="circle exit" id="exitbutton"></span>
               </div>
 
             </div>
@@ -202,6 +211,15 @@
           </div>
         </footer>
       </section>
+
+        <span class="info box"></span>
+        <span class="circle plus" id="plusbutton"></span>
+        <span class="circle exit" id="exitbutton"></span>
+        <div class="lable">
+          <p class="lablesmall">Les mer</p>
+        </div>
+        <span class="info tekst"></span>
+      </main>
 
   </body>
 </html>
