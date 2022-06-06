@@ -21,6 +21,14 @@ let model;
 let modelY;
 let earthModel;
 
+let mouseX = 0;
+let mouseY = 0;
+
+let targetX = 0;
+let targetY = 0;
+const windowHalfX = window.innerWidth / 2;
+const windowHalfY = window.innerHeight / 2;
+
 
 // Progress Bar
 const loadingManager = new THREE.LoadingManager();
@@ -82,18 +90,18 @@ dracoLoader.setDecoderPath('/js/libs/draco/gltf/');
 loader.setDRACOLoader(dracoLoader);
 
 // load model
-  loader.load('/models/portobj.glb', function (gltf) {
+  loader.load('/models/port/port.glb', function (gltf) {
     
     //mesh = gltf.scene.children[1];
     //scene.add(mesh);
     
     model = gltf.scene;
-    model.position.set( 0, 0, 0 );
-    model.rotation.set(0.2, 2.8, 0);
-    model.scale.set( 0.03, 0.03, 0.03 );
+
+    model.position.set( 3, -9, 26 );
+    model.rotation.set(0, 2.6, 0);
+    model.scale.set( 0.02, 0.02, 0.02 );
     modelY = model.position.y
     scene.add( model );
-
     animate();
 
   }, function ( xhr ) {
@@ -106,12 +114,12 @@ loader.setDRACOLoader(dracoLoader);
 
 
     
-  loader.load('/models/low_poly_earth.glb', function (gltf) {
+  loader.load('/models/earth/scene.gltf', function (gltf) {
     
     earthModel = gltf.scene;
-    earthModel.position.set( 2, -1, 20 );
+    earthModel.position.set( 1, -2, 28 );
     earthModel.rotation.set(0, 0, 0);
-    earthModel.scale.set( 2, 2, 2 );
+    earthModel.scale.set( 1, 1, 1 );
     scene.add( earthModel);
 
     animate();
@@ -143,78 +151,73 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 camera.position.setZ(30)
 
-// // Objects
-// const towerGeometry1 = new THREE.BoxGeometry(0.3, 0.5, 0.2)
-// const towerGeometry2 = new THREE.BoxGeometry(0.3, 0.55, 0.2)
-// const towerGeometry3 = new THREE.BoxGeometry(0.3, 0.35, 0.2)
-// const towerGeometry4 = new THREE.BoxGeometry(0.3, 0.28, 0.2)
-
-// const sphereGeometry = new THREE.SphereGeometry(15, 32, 16);
-
-// // Material, wrapping paper for object
-// const towerMaterial1 = new THREE.MeshStandardMaterial({color: 0x064E40})
-// const towerMaterial2 = new THREE.MeshStandardMaterial({color: 0x1F5F5B})
-// const towerMaterial3 = new THREE.MeshStandardMaterial({color: 0x0e8c80})
-// const towerMaterial4 = new THREE.MeshStandardMaterial({color: 0x48BF91})
-
-// const sphereMaterial = new THREE.MeshStandardMaterial({color: 0x0e8c80});
-
-// // Mesh
-// const tower1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
-// const tower2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
-// const tower3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
-// const tower4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
-
-// const staticT1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
-// const staticT2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
-// const staticT3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
-// const staticT4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
-
-// const klode = new THREE.Mesh(sphereGeometry, sphereMaterial);
-
-// // model 1
-// tower1.position.set(-0.15, 0.025, 0)
-// tower2.position.set(0.15, 0.05, 0)
-// tower3.position.set(-0.15, -0.05, 0.2)
-// tower4.position.set(0.15, -0.085, 0.2)
-
-// // model 2
-// staticT1.position.set(-0.15, 0.025, 0)
-// staticT2.position.set(0.15, 0.05, 0)
-// staticT3.position.set(-0.15, -0.05, 0.2)
-// staticT4.position.set(0.15, -0.085, 0.2)
+// Objects
+const towerGeometry1 = new THREE.BoxGeometry(0.3, 0.5, 0.2)
+const towerGeometry2 = new THREE.BoxGeometry(0.3, 0.55, 0.2)
+const towerGeometry3 = new THREE.BoxGeometry(0.3, 0.35, 0.2)
+const towerGeometry4 = new THREE.BoxGeometry(0.3, 0.28, 0.2)
 
 
-// // Groups & model positioning
-// var sculpt = new THREE.Group();
-// var staticSculpt = new THREE.Group();
-// var jordklode = new THREE.Group();
+// Material, wrapping paper for object
+const towerMaterial1 = new THREE.MeshStandardMaterial({color: 0x064E40})
+const towerMaterial2 = new THREE.MeshStandardMaterial({color: 0x1F5F5B})
+const towerMaterial3 = new THREE.MeshStandardMaterial({color: 0x0e8c80})
+const towerMaterial4 = new THREE.MeshStandardMaterial({color: 0x48BF91})
 
-// sculpt.add(tower1, tower2, tower3, tower4);
-// staticSculpt.add(staticT1, staticT2, staticT3, staticT4);
-// jordklode.add(klode);
-// scene.add(sculpt, staticSculpt);
 
-// sculpt.position.set(1.75, -3.2, 28)
-// sculpt.rotation.set(0, -1, 0)
+// Mesh
+const tower1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
+const tower2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
+const tower3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
+const tower4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
 
-// staticSculpt.rotation.y = -1
-// staticSculpt.position.set(1.75, -5.65, 28)
+const staticT1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
+const staticT2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
+const staticT3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
+const staticT4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
 
-// jordklode.position.set(1, 0, 1);
 
-// // Textures
-// //scene.add(earth)
 
-// // Positioning
-// const objectsDistance = 4
-// sculpt.position.y += -objectsDistance * 0
-// staticSculpt.position.y += -objectsDistance * 0
+// model 1
+tower1.position.set(-0.15, 0.025, 0)
+tower2.position.set(0.15, 0.05, 0)
+tower3.position.set(-0.15, -0.05, 0.2)
+tower4.position.set(0.15, -0.085, 0.2)
+
+// model 2
+staticT1.position.set(-0.15, 0.025, 0)
+staticT2.position.set(0.15, 0.05, 0)
+staticT3.position.set(-0.15, -0.05, 0.2)
+staticT4.position.set(0.15, -0.085, 0.2)
+
+
+// Groups & model positioning
+var sculpt = new THREE.Group();
+var staticSculpt = new THREE.Group();
+
+sculpt.add(tower1, tower2, tower3, tower4);
+staticSculpt.add(staticT1, staticT2, staticT3, staticT4);
+scene.add(sculpt, staticSculpt);
+
+sculpt.position.set(1.75, -3.2, 28)
+sculpt.rotation.set(0, -1, 0)
+
+staticSculpt.rotation.y = -1
+staticSculpt.position.set(1.75, -5.65, 28)
+
+
+// Textures
+//scene.add(earth)
+
+// Positioning
+const objectsDistance = 4
+sculpt.position.y += -objectsDistance * 0
+staticSculpt.position.y += -objectsDistance * 0
 
 // Light
-//const ambiLight = new THREE.AmbientLight()
-//ambiLight.position.set(5, 5, 5)
-//scene.add(ambiLight)
+const ambiLight = new THREE.AmbientLight()
+ambiLight.position.set(5, 5, 5)
+scene.add(ambiLight)
 
 /**
  * Scroll
@@ -281,6 +284,31 @@ exitButton.addEventListener("click", (event) => {
 });
 
 
+//Ray caster
+document.addEventListener( "mousemove", (event) => {
+
+  mouseX = ( event.clientX - windowHalfX );
+  mouseY = ( event.clientY - windowHalfY );
+
+});
+
+function mouseRotate() {
+
+  targetX = mouseX * .001;
+  targetY = mouseY * .001;
+
+  if ( earthModel ) {
+
+    earthModel.rotation.y += 0.05 * ( targetX - earthModel.rotation.y );
+    //earthModel.rotation.x += 0.05 * ( targetY - earthModel.rotation.x );
+
+  }
+
+  renderer.render( scene, camera );
+
+}
+
+
 
 window.addEventListener('resize', () => {
   //Update Sizes:
@@ -303,12 +331,11 @@ function animate() {
 
   requestAnimationFrame( animate );
   TWEEN.update();
-  
   camera.position.y = -scrollY * 2.5 / sizes.height;
-  earthModel.rotation.y += 0.0005;
+  //earthModel.rotation.y += 0.0005;
   //controls.update();
   //camera.position.z = defaultCamZ;
-  
+  mouseRotate();
   
   //controls.update();
   renderer.render(scene, camera);
