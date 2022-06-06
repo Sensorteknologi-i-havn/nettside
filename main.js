@@ -98,7 +98,7 @@ loader.setDRACOLoader(dracoLoader);
     model = gltf.scene;
 
     model.position.set( 3, -9, 26 );
-    model.rotation.set(0, 2.6, 0);
+    model.rotation.set(0, 1, 0);
     model.scale.set( 0.02, 0.02, 0.02 );
     modelY = model.position.y
     scene.add( model );
@@ -117,7 +117,7 @@ loader.setDRACOLoader(dracoLoader);
   loader.load('/models/earth/scene.gltf', function (gltf) {
     
     earthModel = gltf.scene;
-    earthModel.position.set( 1, -2, 28 );
+    earthModel.position.set( 1, -2.5, 28 );
     earthModel.rotation.set(0, 0, 0);
     earthModel.scale.set( 1, 1, 1 );
     scene.add( earthModel);
@@ -215,9 +215,9 @@ sculpt.position.y += -objectsDistance * 0
 staticSculpt.position.y += -objectsDistance * 0
 
 // Light
-const ambiLight = new THREE.AmbientLight()
-ambiLight.position.set(5, 5, 5)
-scene.add(ambiLight)
+// const ambiLight = new THREE.AmbientLight()
+// ambiLight.position.set(5, 5, 5)
+// scene.add(ambiLight)
 
 /**
  * Scroll
@@ -245,11 +245,17 @@ function enableScroll() {
   window.onscroll = function() {};
 }
 
+var doc = document.querySelector("body");
 var button = document.getElementById("plusbutton");
 var exitButton = document.getElementById("exitbutton");
 
-let offset = 3;
-let camX, camY, camZ;
+var earthButton = document.getElementById("plusbuttonearth");
+var earthExitButton = document.getElementById("exitbuttonearth");
+
+
+let offsetZ = 2;
+let offsetX = 1;
+let camX, camY, camZ, prevCamEarth;
 camX = camera.position.x;
 camY = camera.position.y;
 camZ = camera.position.z;
@@ -262,7 +268,7 @@ button.addEventListener("click", (event) => {
   exitButton.style.display = 'block';
   disableScroll();
   new TWEEN.Tween(coords)
-    .to({ x: target.position.x, y: target.position.y, z: (target.position.z + offset) })
+    .to({ x: (target.position.x-offsetX), y: target.position.y, z: (target.position.z + offsetZ) })
     .onUpdate(() => 
       camera.position.set(coords.x, coords.y, coords.z)
     )
@@ -277,6 +283,35 @@ exitButton.addEventListener("click", (event) => {
   enableScroll();
   new TWEEN.Tween(coords)
     .to({ x: camX, y: camY, z: camZ })
+    .onUpdate(() => 
+      camera.position.set(coords.x, coords.y, coords.z)
+    )
+    .start();
+});
+
+earthButton.addEventListener("click", (event) => {
+  const target = earthModel;
+  const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  prevCamEarth = coords;
+  earthButton.style.display = 'none';
+  earthExitButton.style.display = 'block';
+  disableScroll();
+  new TWEEN.Tween(coords)
+    .to({ x: target.position.x, y: target.position.y, z: (target.position.z+offsetZ) })
+    .onUpdate(() => 
+      camera.position.set(coords.x, coords.y, coords.z)
+    )
+    .start();
+});
+
+earthExitButton.addEventListener("click", (event) => {
+  const target = prevCamEarth;
+  const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  earthButton.style.display = 'block';
+  earthExitButton.style.display = 'none';
+  enableScroll();
+  new TWEEN.Tween(coords)
+    .to({x: camX, y: camY, z: camZ })
     .onUpdate(() => 
       camera.position.set(coords.x, coords.y, coords.z)
     )
@@ -302,6 +337,12 @@ function mouseRotate() {
     earthModel.rotation.y += 0.05 * ( targetX - earthModel.rotation.y );
     //earthModel.rotation.x += 0.05 * ( targetY - earthModel.rotation.x );
 
+  }
+
+  if (model) {
+    
+    model.rotation.y += 0.3 * ( targetX - model.rotation.y );
+    
   }
 
   renderer.render( scene, camera );
