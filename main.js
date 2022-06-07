@@ -20,6 +20,7 @@ var mesh;
 let model;
 let modelY;
 let earthModel;
+let stop = false;
 
 let mouseX = 0;
 let mouseY = 0;
@@ -68,6 +69,20 @@ const renderer = new THREE.WebGLRenderer({
   antialias: true
 });
 
+
+// const domEle = renderer.domElement;
+
+// const vector = new THREE.Vector3(250, 250, 250);
+// vector.project(camera); 
+
+// vector.x = Math.round((0.5 + vector.x / 2) * (domEle.width / window.devicePixelRatio));
+// vector.y = Math.round((0.5 - vector.y / 2) * (domEle.height / window.devicePixelRatio));
+
+// const annotation = document.querySelector('.annotation');
+// annotation.style.top = `${vector.y}px`;
+// annotation.style.left = `${vector.x}px`;
+
+
 //Orbit Controls
 //const controls = new OrbitControls( camera, renderer.domElement );
 
@@ -90,34 +105,34 @@ dracoLoader.setDecoderPath('/js/libs/draco/gltf/');
 loader.setDRACOLoader(dracoLoader);
 
 // load model
-  loader.load('/models/port/port.glb', function (gltf) {
+  // loader.load('/models/port/port.glb', function (gltf) {
     
-    //mesh = gltf.scene.children[1];
-    //scene.add(mesh);
+  //   //mesh = gltf.scene.children[1];
+  //   //scene.add(mesh);
     
-    model = gltf.scene;
+  //   model = gltf.scene;
 
-    model.position.set( 2, -1, 26 );
-    model.rotation.set(0, 0, 0);
-    model.scale.set( 0.02, 0.02, 0.02 );
-    modelY = model.position.y
-    scene.add( model );
-    animate();
+  //   model.position.set( 2, -2, 26 );
+  //   model.rotation.set(0, 0, 0);
+  //   model.scale.set( 0.02, 0.02, 0.02 );
+  //   modelY = model.position.y
+  //   scene.add( model );
+  //   animate();
 
-  }, function ( xhr ) {
+  // }, function ( xhr ) {
 
-    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+  //   console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 
-  }, undefined, function (e) {
-    console.error(e);
-  });
+  // }, undefined, function (e) {
+  //   console.error(e);
+  // });
 
 
     
   loader.load('/models/earth/scene.gltf', function (gltf) {
     
     earthModel = gltf.scene;
-    earthModel.position.set( 1.5, -10, 28 );
+    earthModel.position.set( 1.5, -14, 28 );
     earthModel.rotation.set(0, 0, 0);
     earthModel.scale.set( 1, 1, 1 );
     scene.add( earthModel);
@@ -255,10 +270,12 @@ var earthExitButton = document.getElementById("exitbuttonearth");
 
 let offsetZ = 2;
 let offsetX = 1;
+
 let camX, camY, camZ, prevCamEarth;
 camX = camera.position.x;
 camY = camera.position.y;
 camZ = camera.position.z;
+let staticY = -10;
 
 
 button.addEventListener("click", (event) => {
@@ -268,7 +285,7 @@ button.addEventListener("click", (event) => {
   exitButton.style.display = 'block';
   disableScroll();
   new TWEEN.Tween(coords)
-    .to({ x: (target.position.x-offsetX), y: target.position.y, z: (target.position.z + offsetZ) })
+    .to({ x: (target.position.x-offsetX), y: camera.position.y, z: (target.position.z + offsetZ) })
     .onUpdate(() => 
       camera.position.set(coords.x, coords.y, coords.z)
     )
@@ -292,14 +309,24 @@ exitButton.addEventListener("click", (event) => {
 earthButton.addEventListener("click", (event) => {
   const target = earthModel;
   const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  const earthCoords = { x: earthModel.position.x, y: earthModel.position.y, z: earthModel.position.z }
   prevCamEarth = coords;
   earthButton.style.display = 'none';
   earthExitButton.style.display = 'block';
+  stop = true;
   disableScroll();
-  new TWEEN.Tween(coords)
-    .to({ x: target.position.x, y: target.position.y, z: (target.position.z+offsetZ) })
+  // new TWEEN.Tween(coords)
+  //   .to({ x: target.position.x-0.5, y: target.position.y, z: (target.position.z +1.5) })
+  //   .onUpdate(() => 
+  //     camera.position.set(coords.x, coords.y, coords.z),
+
+  //   )
+  //   .start();
+
+    new TWEEN.Tween(earthCoords)
+    .to({ x: earthModel.rotation.x, y: earthModel.rotation.y, z: (earthModel.rotation.z) })
     .onUpdate(() => 
-      camera.position.set(coords.x, coords.y, coords.z)
+      earthModel.rotation.set(0, earthCoords.y, 0)
     )
     .start();
 });
@@ -307,13 +334,23 @@ earthButton.addEventListener("click", (event) => {
 earthExitButton.addEventListener("click", (event) => {
   const target = prevCamEarth;
   const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  const earthCoords = { x: earthModel.position.x, y: earthModel.position.y, z: earthModel.position.z }
   earthButton.style.display = 'block';
   earthExitButton.style.display = 'none';
+  stop = false;
   enableScroll();
   new TWEEN.Tween(coords)
     .to({x: camX, y: camY, z: camZ })
     .onUpdate(() => 
-      camera.position.set(coords.x, coords.y, coords.z)
+      camera.position.set(coords.x, coords.y, coords.z),
+      earthModel.position.set( 1.5, -14, 28 )
+    )
+    .start();
+
+    new TWEEN.Tween(earthCoords)
+    .to({ x: earthModel.rotation.x, y: earthModel.rotation.y, z: (earthModel.rotation.z) })
+    .onUpdate(() => 
+      earthModel.rotation.set(0,0,0)
     )
     .start();
 });
@@ -329,20 +366,25 @@ document.addEventListener( "mousemove", (event) => {
 
 function mouseRotate() {
 
-  targetX = mouseX * .001;
-  targetY = mouseY * .001;
+  if (stop) {
+    targetX = 0;
+    targetY = 0;
+  } else {
 
-  if ( earthModel ) {
+    targetX = mouseX * .005;
+    targetY = mouseY * .001;
 
-    earthModel.rotation.y += 0.05 * ( targetX - earthModel.rotation.y );
-    //earthModel.rotation.x += 0.05 * ( targetY - earthModel.rotation.x );
+    if ( earthModel ) {
 
-  }
+      earthModel.rotation.y += 0.05 * ( targetX - earthModel.rotation.y );
+      //earthModel.rotation.z += 0.05 * ( targetx - earthModel.rotation.x );
 
-  if (model) {
-    
-    model.rotation.y += 0.3 * ( targetX - model.rotation.y ) +0.6;
-    
+    }
+
+    if (model) {
+      
+      model.rotation.y += 0.5 * ( targetX - model.rotation.y );
+    }
   }
 
   renderer.render( scene, camera );
