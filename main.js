@@ -5,8 +5,8 @@ import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loa
 import {DRACOLoader} from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/DRACOLoader.js';
 import {RoomEnvironment} from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/environments/RoomEnvironment.js';
 import { TWEEN } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/libs/tween.module.min';
-import { CSS2DObject } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/renderers/CSS2DRenderer.js';
-import { Int8Attribute } from 'three';
+import { CSS2DRenderer, CSS2DObject } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/renderers/CSS2DRenderer.js';
+import { CSS3DRenderer, CSS3DObject } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/renderers/CSS3DRenderer.js';
 
 const sizes = {
   width: window.innerWidth,
@@ -56,6 +56,11 @@ var earthButton = document.getElementById("plusbuttonearth");
 var earthExitButton = document.getElementById("exitbuttonearth");
 let earthDiv;
 let earthLabel;
+let labelRenderer;
+let earthMassDiv;
+let earthMassLabel;
+let moon;
+let earthGeo;
  
 let offsetZ = 2;
 let offsetX = 1;
@@ -120,41 +125,95 @@ function init() {
   dracoLoader.setDecoderPath('/js/libs/draco/gltf/');
   loader.setDRACOLoader(dracoLoader);
 
+
+  const EARTH_RADIUS = 1;
+	const MOON_RADIUS = 0.27;
+
+  const earthGeometry = new THREE.SphereGeometry( EARTH_RADIUS, 16, 16 );
+				const earthMaterial = new THREE.MeshPhongMaterial( {
+					specular: 0x333333,
+					shininess: 5
+				} );
+        const earth = new THREE.Mesh( earthGeometry, earthMaterial );
+        scene.add( earth );
+
+				const moonGeometry = new THREE.SphereGeometry( MOON_RADIUS, 16, 16 );
+				const moonMaterial = new THREE.MeshPhongMaterial( {
+					shininess: 5
+				} );
+				moon = new THREE.Mesh( moonGeometry, moonMaterial );
+				scene.add( moon );
+
+				//  
+			
+        earthDiv = document.createElement( 'div' );
+        earthDiv.setAttribute('style', 'white-space: pre;');
+        earthDiv.className = 'label';
+        earthDiv.textContent = 'Norge \r\n';
+        earthDiv.textContent += 'hei \r\nsdasd\r\nsdasd\r\nsdasd\r\nsdasd';
+        earthDiv.style.zIndex = 99;
+        //earthDiv.style.marginTop = '-1em';
+        earthLabel = new CSS2DObject( earthDiv );
+        earth.add( earthLabel );
+
+        earth.scale.set(0.5, 0.5, 0.5)
+        earth.position.set(1.5, -10.5, 26)
+        earthLabel.position.set(-2.5, 0, 5)
+
+				// earthMassDiv = document.createElement( 'div' );
+				// earthMassDiv.className = 'label';
+				// earthMassDiv.textContent = '5.97237e24 kg';
+				// earthMassDiv.style.marginTop = '-1em';
+				// earthMassLabel = new CSS2DObject( earthMassDiv );
+				// earthMassLabel.position.set( 0, - 2 * EARTH_RADIUS, 0 );
+				//earth.add( earthMassLabel );
+
+				const moonDiv = document.createElement( 'div' );
+				moonDiv.className = 'label';
+				moonDiv.textContent = 'Moon';
+				moonDiv.style.marginTop = '-1em';
+				const moonLabel = new CSS2DObject( moonDiv );
+				moonLabel.position.set( 0, MOON_RADIUS, 0 );
+				moon.add( moonLabel );
+
+				const moonMassDiv = document.createElement( 'div' );
+				moonMassDiv.className = 'label';
+				moonMassDiv.textContent = '7.342e22 kg';
+				moonMassDiv.style.marginTop = '-1em';
+				const moonMassLabel = new CSS2DObject( moonMassDiv );
+				moonMassLabel.position.set( 0, - 2 * MOON_RADIUS, 0 );
+				moon.add( moonMassLabel );
+
+				labelRenderer = new CSS2DRenderer();
+				labelRenderer.setSize( sizes.width, sizes.height );
+				labelRenderer.domElement.style.position = 'fixed';
+				labelRenderer.domElement.style.top = '0px';
+				document.body.appendChild( labelRenderer.domElement );
+
+
+
+
+
+
+
+
+
+
+
 // load model
-  // loader.load('/models/port/port.glb', function (gltf) {
+  loader.load('/models/port/port.glb', function (gltf) {
     
-    //   //mesh = gltf.scene.children[1];
-  //   //scene.add(mesh);
+    //mesh = gltf.scene.children[0];
+    //scene.add(mesh);
     
-  //   model = gltf.scene;
+    model = gltf.scene;
 
-  //   model.position.set( 2, -2, 26 );
-  //   model.rotation.set(0, 0, 0);
-  //   model.scale.set( 0.02, 0.02, 0.02 );
-  //   modelY = model.position.y
-  //   scene.add( model );
-  //   animate();
-
-  // }, function ( xhr ) {
-
-  //   console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-  // }, undefined, function (e) {
-  //   console.error(e);
-  // });
-
-
-    
-  loader.load('/models/earth/scene.gltf', function (gltf) {
-    
-    earthModel = gltf.scene;
-    earthModel.position.set( 1.5, -11.5, 28 );
-    earthModel.rotation.set(0, 0, 0);
-    earthModel.scale.set( 1, 1, 1 );
-    scene.add( earthModel);
-    //earthModel.scene.name = "earthModel";
-
-    animate();
+    model.position.set( 2, -2, 26 );
+    model.rotation.set(0, 0, 0);
+    model.scale.set( 0.02, 0.02, 0.02 );
+    modelY = model.position.y
+    scene.add( model );
+   
 
   }, function ( xhr ) {
 
@@ -164,6 +223,28 @@ function init() {
     console.error(e);
   });
 
+
+  earthModel = new THREE.Object3D();
+
+  loader.load('/models/earth/scene.gltf', function (gltf) {
+    
+    
+    earthModel = gltf.scene;
+    earthModel.position.set( 1.5, -11.5, 26 );
+    earthModel.rotation.set(0, 0, 0);
+    earthModel.zIndex = 0;
+    earthModel.scale.set( 1.2, 1.2, 1.2 );
+    earthModel.name = "EarthModel";
+    
+    scene.add( earthModel);
+
+  }, function ( xhr ) {
+
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+  }, undefined, function (e) {
+    console.error(e);
+  });
 
   // Resize
   window.onresize = function () {
@@ -185,46 +266,64 @@ function init() {
 
   /////////////LABEL///////////
 
-  // const earth = scene.getObjectByName("earthModel");
+  // const earth = scene.getObjectByName(earthModel.name)
+  // //const earth = scene.getObjectByName("earthModel");
   // const earthMesh = new THREE.Mesh(earth.geometry, new THREE.MeshStandardMaterial());
   // earthDiv = document.createElement( 'div' );
   // earthDiv.className = 'label';
   // earthDiv.textContent = 'Earth';
-  // earthDiv.style.marginTop = '-1em';
-
-  // earthLabel = new CSS2DObject( earthDiv );
-  // earthLabel.position.set( 0, 0, 0 );
-  // earthMesh.add( earthLabel );
-
+  // //earthDiv.style.marginTop = '-1em';
 
   events();
 }
 
-  // Objects
-  const towerGeometry1 = new THREE.BoxGeometry(0.3, 0.5, 0.2)
-  const towerGeometry2 = new THREE.BoxGeometry(0.3, 0.55, 0.2)
-  const towerGeometry3 = new THREE.BoxGeometry(0.3, 0.35, 0.2)
-  const towerGeometry4 = new THREE.BoxGeometry(0.3, 0.28, 0.2)
+
+  // let renderer3d = new CSS3DRenderer();
+  // renderer3d.setSize(window.innerWidth, window.innerHeight);
+  // document.body.appendChild(renderer3d.domElement);
+  // let el = document.createElement('div');
+  // el.textContent = "Hello";
+  // let obj = new THREE.CSS3DRenderer(el);
+  // obj.position.set(0,0,0);
+  // scene.add(obj);
 
 
-  // Material, wrapping paper for object
-  const towerMaterial1 = new THREE.MeshStandardMaterial({color: 0x064E40})
-  const towerMaterial2 = new THREE.MeshStandardMaterial({color: 0x1F5F5B})
-  const towerMaterial3 = new THREE.MeshStandardMaterial({color: 0x0e8c80})
-  const towerMaterial4 = new THREE.MeshStandardMaterial({color: 0x48BF91})
+    // Objects
+    const towerGeometry1 = new THREE.BoxGeometry(0.3, 0.5, 0.2)
+    const towerGeometry2 = new THREE.BoxGeometry(0.3, 0.55, 0.2)
+    const towerGeometry3 = new THREE.BoxGeometry(0.3, 0.35, 0.2)
+    const towerGeometry4 = new THREE.BoxGeometry(0.3, 0.28, 0.2)
+  
+    const boxGeometry = new THREE.BoxGeometry(0.3, 0.5, 0.2);
+    
+  
+  
+    // Material, wrapping paper for object
+    const towerMaterial1 = new THREE.MeshStandardMaterial({color: 0x064E40})
+    const towerMaterial2 = new THREE.MeshStandardMaterial({color: 0x1F5F5B})
+    const towerMaterial3 = new THREE.MeshStandardMaterial({color: 0x0e8c80})
+    const towerMaterial4 = new THREE.MeshStandardMaterial({color: 0x48BF91})
+  
+    const boxMaterial = new THREE.MeshStandardMaterial({color: 0x064E40})
+  
+  
+    // Mesh
+    const tower1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
+    const tower2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
+    const tower3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
+    const tower4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
+  
+    const staticT1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
+    const staticT2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
+    const staticT3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
+    const staticT4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
+  
+    const box = new THREE.Mesh(boxGeometry, boxMaterial);
+    box.position.set(0,0,20);
+    scene.add(box);
 
-
-  // Mesh
-  const tower1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
-  const tower2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
-  const tower3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
-  const tower4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
-
-  const staticT1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
-  const staticT2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
-  const staticT3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
-  const staticT4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
-
+    const earth = box
+ 
 
 
   // model 1
@@ -239,7 +338,7 @@ function init() {
   staticT3.position.set(-0.15, -0.05, 0.2)
   staticT4.position.set(0.15, -0.085, 0.2)
 
-  //////////////////////////////
+  
   ///////////////////////////////
   // Groups & model positioning
   var sculpt = new THREE.Group();
@@ -279,6 +378,7 @@ staticSculpt.position.y += -objectsDistance * 0
 function events() {
   window.addEventListener('scroll', () => {
     scrollY = window.scrollY;
+    
     //model.position.y = (scrollY/300);
     //model.rotation.y = 4 + (scrollY/500)
   })
@@ -437,16 +537,22 @@ window.addEventListener('resize', () => {
 
 function animate() {
   let clock = new THREE.Clock();
+  const elapsed = clock.getElapsedTime();
+
+
+  
 
   requestAnimationFrame( animate );
   TWEEN.update();
   camera.position.y = -scrollY * 2.5 / sizes.height;
+  
   //earthModel.rotation.y += 0.0005;
   //controls.update();
   //camera.position.z = defaultCamZ;
   mouseRotate();
   //controls.update();
   renderer.render(scene, camera);
+  labelRenderer.render(scene, camera);
 }
 
 animate();

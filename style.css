@@ -121,11 +121,6 @@ header {
   height: 2%;
 }
 
-label {
-  color: white;
-  font-size: 2rem;
-}
-
 .img-thumbnail {
   padding: .25rem;
   background-color: #fff;
@@ -250,6 +245,12 @@ label {
   #number {
     position: absolute;
     z-index: -1;
+  }
+  .label {
+    color: #FFF;
+    font-family: sans-serif;
+    padding: 2px;
+    background: rgba( 0, 0, 0, .6 );
   }
 
   /* footer */
