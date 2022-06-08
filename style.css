@@ -12,6 +12,9 @@ canvas {
   font-style: normal;
 }
 
+html {
+scroll-snap-type: y mandatory;
+}
 
 html, body, .navbar{
 background: #4682B4;
@@ -26,6 +29,79 @@ body {
 margin-top: 30px;
 margin-left: 30px;
 }
+
+/* Start vertical dot-menu Style */
+.navbar-vertical {
+  position: fixed;
+  z-index: 999;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+.navbar-vertical .dot-menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.navbar-vertical .dot-menu li {
+  position: relative;
+  min-width: 200px;
+  text-align: right;
+}
+.navbar-vertical .dot-menu li .dot {
+  display: block;
+  color: #fff;
+  padding: 5px 0;
+}
+.navbar-vertical .dot-menu li .dot::before,
+.navbar-vertical .dot-menu li .dot::after {
+  display: block;
+  position: absolute;
+  content: '';
+  border-radius: 50%;  
+  top: 50%;  
+  transition: all .3s ease;
+}
+.navbar-vertical .dot-menu li .dot::before {
+  width: 6px;
+  height: 6px;
+  right: 0;
+  border: 3px solid #285376;
+  transform: translateY(-50%);
+}
+.navbar-vertical .dot-menu li .dot::after {
+  width: 16px;
+  height: 16px;
+  border: 3px solid #285376;
+  right: -5px;
+  transform: translateY(-50%) scale(0);
+}
+.navbar-vertical .dot-menu li .dot.active::before,
+.nnavbar-vertical .dot-menu li:hover .dot::before {
+  background: #4682B4;
+  border-color: #4682B4;
+}
+.navbar-vertical .dot-menu li .dot.active::after,
+.navbar-vertical .dot-menu li:hover .dot::after {
+  transform: translateY(-50%) scale(1);  
+}
+.navbar-vertical .dot-menu li .dot p {
+  display: inline-block;
+  opacity: 0;
+  font-style: oblique;
+  font-weight: 500;
+  letter-spacing: .5px;
+  margin-right: 30px;
+  transform: translateX(20px);
+  transition: all .3s ease;
+}
+
+.navbar-vertical .dot-menu li .dot.active p,
+.navbar-vertical .dot-menu li:hover .dot p {
+  transform: translateX(0px);
+  opacity: 1;
+}
+/* End vertical dot-menu Style */
 
 .header{
   margin-top: 200px;
@@ -45,10 +121,6 @@ p.a, p.b, li{
   font-style: normal;
 }
 
-p.a, li{
-font-style: normal;
-}
-
 p.b {
   font-style: italic;
   text-decoration: underline;
@@ -62,10 +134,6 @@ p{
 margin-bottom: 10px;
 }
 
-ul{
-  list-style-type: square;
-}
-
 
 header {
   background: var(--dark-bg); /* svart bakgrunn på header*/
@@ -75,12 +143,27 @@ header {
   margin-bottom: var(--spacing);
 }
 
+section {
+  height: 100vh;
+  width: auto;
+  scroll-snap-align: start;
+}
+
+.section-end{
+  scroll-snap-align: end;
+  height: 0vh;
+}
+
 .container {
   grid-column: 2 / 8;
   padding: 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
   margin-bottom: var(--spacing);
+}
+
+.row{
+  margin-top: 50px;
 }
 
 .lable {
@@ -253,6 +336,10 @@ label {
   }
 
   /* footer */
+.end, .ocean{
+  scroll-snap-align: end;
+}
+
   .norkart-footer {
     color: white;
     text-align: center;
