@@ -13,14 +13,19 @@ const sizes = {
   height: window.innerHeight
 }
 
+// Canvas
+const canvas = document.querySelector('#bg');
 
 let scrollY = window.scrollY;
 let scrollTop, scrollLeft;
-var mesh;
 let model;
 let modelY;
 let earthModel;
 let stop = false;
+let sprite;
+let mesh;
+let spriteBehindObject;
+const annotation = document.querySelector(".annotation");
 
 let mouseX = 0;
 let mouseY = 0;
@@ -49,10 +54,6 @@ loadingManager.onLoad = function() {
   progressBarContainer.style.display = 'none';
 }
 
-
-// Canvas
-const canvas = document.querySelector('#bg');
-
 // Camera
 // Mimics human eyeball.
 // @param: FOV, Aspect Ratio, 2 x View Frustrum
@@ -69,18 +70,6 @@ const renderer = new THREE.WebGLRenderer({
   antialias: true
 });
 
-
-// const domEle = renderer.domElement;
-
-// const vector = new THREE.Vector3(250, 250, 250);
-// vector.project(camera); 
-
-// vector.x = Math.round((0.5 + vector.x / 2) * (domEle.width / window.devicePixelRatio));
-// vector.y = Math.round((0.5 - vector.y / 2) * (domEle.height / window.devicePixelRatio));
-
-// const annotation = document.querySelector('.annotation');
-// annotation.style.top = `${vector.y}px`;
-// annotation.style.left = `${vector.x}px`;
 
 
 //Orbit Controls
@@ -126,13 +115,11 @@ loader.setDRACOLoader(dracoLoader);
   // }, undefined, function (e) {
   //   console.error(e);
   // });
-
-
     
   loader.load('/models/earth/scene.gltf', function (gltf) {
     
     earthModel = gltf.scene;
-    earthModel.position.set( 1.5, -14, 28 );
+    earthModel.position.set( 1.5, -11.5, 28 );
     earthModel.rotation.set(0, 0, 0);
     earthModel.scale.set( 1, 1, 1 );
     scene.add( earthModel);
@@ -206,6 +193,58 @@ staticT3.position.set(-0.15, -0.05, 0.2)
 staticT4.position.set(0.15, -0.085, 0.2)
 
 
+//////////////////////////////
+// Mesh
+
+const cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
+
+mesh = new THREE.Mesh(
+    cubeGeometry,
+    new THREE.MeshPhongMaterial({
+        color: 0x156289,
+        emissive: 0x072534,
+        side: THREE.DoubleSide,
+        shading: THREE.FlatShading
+    })
+);
+
+const line = new THREE.LineSegments(
+  new THREE.WireframeGeometry(cubeGeometry),
+  new THREE.LineBasicMaterial({
+      color: 0xffffff,
+      linewidth: 1,
+      opacity: 0.25,
+      transparent: true
+  })
+);
+
+scene.add(mesh);
+scene.add(line);  
+
+// Sprite
+
+    const numberTexture = new THREE.CanvasTexture(
+        document.querySelector("#number")
+    );
+
+    const spriteMaterial = new THREE.SpriteMaterial({
+        map: numberTexture,
+        alphaTest: 0.5,
+        transparent: true,
+        depthTest: false,
+        depthWrite: false
+    });
+
+    sprite = new THREE.Sprite(spriteMaterial);
+    sprite.position.set(250, 250, 250);
+    sprite.scale.set(60, 60, 1);
+
+    scene.add(sprite);
+
+
+///////////////////////////////
+
+
 // Groups & model positioning
 var sculpt = new THREE.Group();
 var staticSculpt = new THREE.Group();
@@ -260,13 +299,11 @@ function enableScroll() {
   window.onscroll = function() {};
 }
 
-var doc = document.querySelector("body");
 var button = document.getElementById("plusbutton");
 var exitButton = document.getElementById("exitbutton");
 
 var earthButton = document.getElementById("plusbuttonearth");
 var earthExitButton = document.getElementById("exitbuttonearth");
-
 
 let offsetZ = 2;
 let offsetX = 1;
@@ -310,23 +347,24 @@ earthButton.addEventListener("click", (event) => {
   const target = earthModel;
   const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
   const earthCoords = { x: earthModel.position.x, y: earthModel.position.y, z: earthModel.position.z }
+  const earthRotCoords = { x: earthModel.rotation.x, y: earthModel.rotation.y, z: earthModel.rotation.z }
   prevCamEarth = coords;
   earthButton.style.display = 'none';
   earthExitButton.style.display = 'block';
   stop = true;
   disableScroll();
-  // new TWEEN.Tween(coords)
-  //   .to({ x: target.position.x-0.5, y: target.position.y, z: (target.position.z +1.5) })
-  //   .onUpdate(() => 
-  //     camera.position.set(coords.x, coords.y, coords.z),
+  new TWEEN.Tween(coords)
+    .to({ x: target.position.x-0.5, y: target.position.y, z: (target.position.z +1.5) })
+    .onUpdate(() => 
+      camera.position.set(coords.x, coords.y, coords.z),
 
-  //   )
-  //   .start();
+    )
+    .start();
 
-    new TWEEN.Tween(earthCoords)
+    new TWEEN.Tween(earthRotCoords)
     .to({ x: earthModel.rotation.x, y: earthModel.rotation.y, z: (earthModel.rotation.z) })
     .onUpdate(() => 
-      earthModel.rotation.set(0, earthCoords.y, 0)
+      earthModel.rotation.set(0, -0.9, 0)
     )
     .start();
 });
@@ -339,18 +377,19 @@ earthExitButton.addEventListener("click", (event) => {
   earthExitButton.style.display = 'none';
   stop = false;
   enableScroll();
+
   new TWEEN.Tween(coords)
     .to({x: camX, y: camY, z: camZ })
     .onUpdate(() => 
       camera.position.set(coords.x, coords.y, coords.z),
-      earthModel.position.set( 1.5, -14, 28 )
+      earthModel.position.set( 1.5, -11.5, 28 )
     )
     .start();
 
     new TWEEN.Tween(earthCoords)
     .to({ x: earthModel.rotation.x, y: earthModel.rotation.y, z: (earthModel.rotation.z) })
     .onUpdate(() => 
-      earthModel.rotation.set(0,0,0)
+      earthModel.rotation.set(0, 5,0)
     )
     .start();
 });
@@ -419,9 +458,39 @@ function animate() {
   //controls.update();
   //camera.position.z = defaultCamZ;
   mouseRotate();
+  updateAnnotationOpacity();
+  updateScreenPosition();
   
   //controls.update();
   renderer.render(scene, camera);
 }
+
+function updateAnnotationOpacity() {
+  const meshDistance = camera.position.distanceTo(mesh.position);
+  const spriteDistance = camera.position.distanceTo(sprite.position);
+  spriteBehindObject = spriteDistance > meshDistance;
+  sprite.material.opacity = spriteBehindObject ? 0.25 : 1;
+
+  // Do you want a number that changes size according to its position?
+  // Comment out the following line and the `::before` pseudo-element.
+  sprite.material.opacity = 0;
+}
+
+function updateScreenPosition() {
+  const vector = new THREE.Vector3(250, 250, 250);
+  const canvas = renderer.domElement;
+
+  vector.project(camera);
+
+  vector.x = Math.round((0.5 + vector.x / 2) * (canvas.width / window.devicePixelRatio));
+  vector.y = Math.round((0.5 - vector.y / 2) * (canvas.height / window.devicePixelRatio));
+
+  annotation.style.top = `${vector.y}px`;
+  annotation.style.left = `${vector.x}px`;
+  annotation.style.opacity = spriteBehindObject ? 0.25 : 1;
+}
+
+
+
 
 animate();
