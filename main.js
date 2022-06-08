@@ -152,7 +152,7 @@ function init() {
     earthModel.rotation.set(0, 0, 0);
     earthModel.scale.set( 1, 1, 1 );
     scene.add( earthModel);
-    earthModel.scene.name = "earthModel";
+    //earthModel.scene.name = "earthModel";
 
     animate();
 
@@ -185,16 +185,16 @@ function init() {
 
   /////////////LABEL///////////
 
-  const earth = scene.getObjectByName(earthModel);
-  const earthMesh = new THREE.Mesh(earth.geometry, new THREE.MeshStandardMaterial());
-  earthDiv = document.createElement( 'div' );
-  earthDiv.className = 'label';
-  earthDiv.textContent = 'Earth';
-  earthDiv.style.marginTop = '-1em';
+  // const earth = scene.getObjectByName("earthModel");
+  // const earthMesh = new THREE.Mesh(earth.geometry, new THREE.MeshStandardMaterial());
+  // earthDiv = document.createElement( 'div' );
+  // earthDiv.className = 'label';
+  // earthDiv.textContent = 'Earth';
+  // earthDiv.style.marginTop = '-1em';
 
-  earthLabel = new CSS2DObject( earthDiv );
-  earthLabel.position.set( 0, 0, 0 );
-  earthMesh.add( earthLabel );
+  // earthLabel = new CSS2DObject( earthDiv );
+  // earthLabel.position.set( 0, 0, 0 );
+  // earthMesh.add( earthLabel );
 
 
   events();
