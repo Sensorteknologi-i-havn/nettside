@@ -217,8 +217,7 @@ label {
       height: 2px;
   }
 
-<<<<<<< HEAD
-  .annotation {
+ .annotation {
     position: absolute;
     top: 0;
     left: 0;
@@ -251,7 +250,8 @@ label {
   #number {
     position: absolute;
     z-index: -1;
-=======
+  }
+
   /* footer */
   .norkart-footer {
     color: white;
@@ -296,7 +296,6 @@ label {
     0% {transform: translateX(0);}
     50% {transform: translateX(-25%);}
     100% {transform: translateX(-50%);}
->>>>>>> 7664f9101e5ed477579f387cd047fee5beac22d0
 }
 
 @media screen and (max-width: 800px) {
