@@ -2,7 +2,7 @@
 
 canvas {
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   top: 0;
   left: 0;
 }
@@ -18,13 +18,20 @@ html {
 scroll-snap-type: y mandatory;
 }
 
+div{
+  position: relative;
+  z-index: 995;
+}
+
 html, body, .navbar{
 background: #4682B4;
 color:white;
+
 }
 
 body {
-    z-index: 2;
+  position: relative;
+  z-index: 900;
 }
 
 .navbar-brand {
@@ -222,6 +229,8 @@ section > div {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  
+
 }
 
 .container {

@@ -61,6 +61,9 @@ let earthMassDiv;
 let earthMassLabel;
 let moon;
 let earthGeo;
+let earthMaterial;
+let earthGeometry;
+let earthMesh;
  
 let offsetZ = 2;
 let offsetX = 1;
@@ -151,10 +154,12 @@ function init() {
         earthDiv.className = 'label';
         earthDiv.textContent = 'Norge \r\n';
         earthDiv.textContent += 'hei \r\nsdasd\r\nsdasd\r\nsdasd\r\nsdasd';
-        earthDiv.style.zIndex = 99;
+        earthDiv.style.zIndex = 0;
         //earthDiv.style.marginTop = '-1em';
         earthLabel = new CSS2DObject( earthDiv );
         earth.add( earthLabel );
+        earth.polygonOffset = true;
+        earth.polygonOffset = 0;
 
         earth.scale.set(0.5, 0.5, 0.5)
         earth.position.set(1.5, -10.5, 26)
@@ -230,13 +235,47 @@ function init() {
     
     
     earthModel = gltf.scene;
-    earthModel.position.set( 1.5, -11.5, 26 );
+    earthModel.position.set( 1.5, -11, 28 );
     earthModel.rotation.set(0, 0, 0);
-    earthModel.zIndex = 0;
     earthModel.scale.set( 1.2, 1.2, 1.2 );
     earthModel.name = "EarthModel";
+    var earthMesh = new THREE.Mesh();
+    let earthMeshMaterial = new THREE.MeshStandardMaterial();
+
+    // gltf.scene.traverse(function (child) {
+    //   if ((child).isMesh) {
+    //       earthMesh = child
+    //       earthMeshMaterial = child.material
+    //       earthMeshMaterial.format = THREE.RGBAFormat;
+    //       earthMeshMaterial.polygonOffset = true
+    //       earthMeshMaterial.polygonOffsetUnit = 1;
+    //       earthMeshMaterial.polygonOffsetFactor = -1;
+    //   }})
+
+      var jorden = new THREE.Mesh(earthMesh.geometry, earthMeshMaterial)
+      jorden.scale.set(0.02,0.02,0.02)
+      scene.add(jorden)
+    earthMeshMaterial.transparent = true;
+  
+    earthMeshMaterial.polygonOffset = true;
+    earthMesh.position.set( 1.5, -11.5, 26 );
+    scene.add(earthMesh);
+
+    // earthModel.traverse((child) => {
+    //   if(child.isMesh) {
+    //     child.material.po;
+    //     earthGeometry = child.geometry;
+    //   }
+    // });
+
+    //earthMesh = new THREE.Mesh(earthGeometry, earthMaterial);
+    //earthMesh.scale.set(10, 10, 10)
+
+    // var jord = new THREE.Group();
+    // jord.add(earthMesh);
     
-    scene.add( earthModel);
+    //scene.add(jord);
+    scene.add(earthModel);
 
   }, function ( xhr ) {
 
@@ -288,71 +327,71 @@ function init() {
   // scene.add(obj);
 
 
-    // Objects
-    const towerGeometry1 = new THREE.BoxGeometry(0.3, 0.5, 0.2)
-    const towerGeometry2 = new THREE.BoxGeometry(0.3, 0.55, 0.2)
-    const towerGeometry3 = new THREE.BoxGeometry(0.3, 0.35, 0.2)
-    const towerGeometry4 = new THREE.BoxGeometry(0.3, 0.28, 0.2)
+  //   // Objects
+  //   const towerGeometry1 = new THREE.BoxGeometry(0.3, 0.5, 0.2)
+  //   const towerGeometry2 = new THREE.BoxGeometry(0.3, 0.55, 0.2)
+  //   const towerGeometry3 = new THREE.BoxGeometry(0.3, 0.35, 0.2)
+  //   const towerGeometry4 = new THREE.BoxGeometry(0.3, 0.28, 0.2)
   
-    const boxGeometry = new THREE.BoxGeometry(0.3, 0.5, 0.2);
+  //   const boxGeometry = new THREE.BoxGeometry(0.3, 0.5, 0.2);
     
   
   
-    // Material, wrapping paper for object
-    const towerMaterial1 = new THREE.MeshStandardMaterial({color: 0x064E40})
-    const towerMaterial2 = new THREE.MeshStandardMaterial({color: 0x1F5F5B})
-    const towerMaterial3 = new THREE.MeshStandardMaterial({color: 0x0e8c80})
-    const towerMaterial4 = new THREE.MeshStandardMaterial({color: 0x48BF91})
+  //   // Material, wrapping paper for object
+  //   const towerMaterial1 = new THREE.MeshStandardMaterial({color: 0x064E40})
+  //   const towerMaterial2 = new THREE.MeshStandardMaterial({color: 0x1F5F5B})
+  //   const towerMaterial3 = new THREE.MeshStandardMaterial({color: 0x0e8c80})
+  //   const towerMaterial4 = new THREE.MeshStandardMaterial({color: 0x48BF91})
   
-    const boxMaterial = new THREE.MeshStandardMaterial({color: 0x064E40})
+  //   const boxMaterial = new THREE.MeshStandardMaterial({color: 0x064E40})
   
   
-    // Mesh
-    const tower1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
-    const tower2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
-    const tower3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
-    const tower4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
+  //   // Mesh
+  //   const tower1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
+  //   const tower2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
+  //   const tower3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
+  //   const tower4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
   
-    const staticT1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
-    const staticT2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
-    const staticT3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
-    const staticT4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
+  //   const staticT1 = new THREE.Mesh(towerGeometry1, towerMaterial1)
+  //   const staticT2 = new THREE.Mesh(towerGeometry2, towerMaterial2)
+  //   const staticT3 = new THREE.Mesh(towerGeometry3, towerMaterial3)
+  //   const staticT4 = new THREE.Mesh(towerGeometry4, towerMaterial4)
   
-    const box = new THREE.Mesh(boxGeometry, boxMaterial);
-    box.position.set(0,0,20);
-    scene.add(box);
+  //   const box = new THREE.Mesh(boxGeometry, boxMaterial);
+  //   box.position.set(0,0,20);
+  //   scene.add(box);
 
-    const earth = box
+  //   const earth = box
  
 
 
-  // model 1
-  tower1.position.set(-0.15, 0.025, 0)
-  tower2.position.set(0.15, 0.05, 0)
-  tower3.position.set(-0.15, -0.05, 0.2)
-  tower4.position.set(0.15, -0.085, 0.2)
+  // // model 1
+  // tower1.position.set(-0.15, 0.025, 0)
+  // tower2.position.set(0.15, 0.05, 0)
+  // tower3.position.set(-0.15, -0.05, 0.2)
+  // tower4.position.set(0.15, -0.085, 0.2)
 
-  // model 2
-  staticT1.position.set(-0.15, 0.025, 0)
-  staticT2.position.set(0.15, 0.05, 0)
-  staticT3.position.set(-0.15, -0.05, 0.2)
-  staticT4.position.set(0.15, -0.085, 0.2)
+  // // model 2
+  // staticT1.position.set(-0.15, 0.025, 0)
+  // staticT2.position.set(0.15, 0.05, 0)
+  // staticT3.position.set(-0.15, -0.05, 0.2)
+  // staticT4.position.set(0.15, -0.085, 0.2)
 
   
-  ///////////////////////////////
-  // Groups & model positioning
-  var sculpt = new THREE.Group();
-  var staticSculpt = new THREE.Group();
+  // ///////////////////////////////
+  // // Groups & model positioning
+  // var sculpt = new THREE.Group();
+  // var staticSculpt = new THREE.Group();
 
-  sculpt.add(tower1, tower2, tower3, tower4);
-  staticSculpt.add(staticT1, staticT2, staticT3, staticT4);
-  scene.add(sculpt, staticSculpt);
+  // sculpt.add(tower1, tower2, tower3, tower4);
+  // staticSculpt.add(staticT1, staticT2, staticT3, staticT4);
+  // scene.add(sculpt, staticSculpt);
 
-  sculpt.position.set(1.75, -3.2, 28)
-  sculpt.rotation.set(0, -1, 0)
+  // sculpt.position.set(1.75, -3.2, 28)
+  // sculpt.rotation.set(0, -1, 0)
 
-  staticSculpt.rotation.y = -1
-  staticSculpt.position.set(1.75, -5.65, 28)
+  // staticSculpt.rotation.y = -1
+  // staticSculpt.position.set(1.75, -5.65, 28)
 
 
 
@@ -360,9 +399,9 @@ function init() {
 //scene.add(earth)
 
 // Positioning
-const objectsDistance = 4
-sculpt.position.y += -objectsDistance * 0
-staticSculpt.position.y += -objectsDistance * 0
+// const objectsDistance = 4
+// sculpt.position.y += -objectsDistance * 0
+// staticSculpt.position.y += -objectsDistance * 0
 
 
 // Light
