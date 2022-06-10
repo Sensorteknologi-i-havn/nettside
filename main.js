@@ -49,11 +49,6 @@ let pmremGenerator;
 let loader;
 let dracoLoader;
 
-var button = document.getElementById("plusbutton");
-var exitButton = document.getElementById("exitbutton");
- 
-var earthButton = document.getElementById("plusbuttonearth");
-var earthExitButton = document.getElementById("exitbuttonearth");
 let earthDiv;
 let earthLabel;
 let labelRenderer;
@@ -64,6 +59,8 @@ let earthGeo;
 let earthMaterial;
 let earthGeometry;
 let earthMesh;
+let earthButtonDiv;
+let earthButtonLabel;
  
 let offsetZ = 2;
 let offsetX = 1;
@@ -104,7 +101,7 @@ function init() {
     alpha: true,
     antialias: true
   });
-
+  //renderer.gammaOutput = true,
 
 
   //Orbit Controls
@@ -133,79 +130,107 @@ function init() {
 	const MOON_RADIUS = 0.27;
 
   const earthGeometry = new THREE.SphereGeometry( EARTH_RADIUS, 16, 16 );
-				const earthMaterial = new THREE.MeshPhongMaterial( {
-					specular: 0x333333,
-					shininess: 5
-				} );
-        const earth = new THREE.Mesh( earthGeometry, earthMaterial );
-        scene.add( earth );
+  const earthMaterial = new THREE.MeshPhongMaterial( {
+    specular: 0x333333,
+    shininess: 5
+  } );
+  const earth = new THREE.Mesh( earthGeometry, earthMaterial );
+  scene.add( earth );
 
-				const moonGeometry = new THREE.SphereGeometry( MOON_RADIUS, 16, 16 );
-				const moonMaterial = new THREE.MeshPhongMaterial( {
-					shininess: 5
-				} );
-				moon = new THREE.Mesh( moonGeometry, moonMaterial );
-				scene.add( moon );
+  const moonGeometry = new THREE.SphereGeometry( MOON_RADIUS, 16, 16 );
+  const moonMaterial = new THREE.MeshPhongMaterial( {
+    shininess: 5
+  } );
+  moon = new THREE.Mesh( moonGeometry, moonMaterial );
+  scene.add( moon );
 
-				//  
-			
-        earthDiv = document.createElement( 'div' );
-        earthDiv.setAttribute('style', 'white-space: pre;');
-        earthDiv.className = 'label';
-        earthDiv.textContent = 'Norge \r\n';
-        earthDiv.textContent += 'hei \r\nsdasd\r\nsdasd\r\nsdasd\r\nsdasd';
-        earthDiv.style.zIndex = 0;
-        //earthDiv.style.marginTop = '-1em';
-        earthLabel = new CSS2DObject( earthDiv );
-        earth.add( earthLabel );
-        earth.polygonOffset = true;
-        earth.polygonOffset = 0;
+  ////////////HAMBURG BUTTON///////////////////
+  earthButtonDiv = document.createElement( 'div' );
+  let bStyle = earthButtonDiv.style;
+  earthButtonDiv.className = "hamburg";
+  bStyle.background = 'rgb(24, 24, 24, 0.5)';
+  bStyle.fontSize = '18px';
+  bStyle.margin = "20px";
+  bStyle.padding = "15px";
+  bStyle.zIndex = "1000";
+  earthButtonDiv.innerHTML = "Hamburg";
 
-        earth.scale.set(0.5, 0.5, 0.5)
-        earth.position.set(1.5, -10.5, 26)
-        earthLabel.position.set(-2.5, 0, 5)
-
-				// earthMassDiv = document.createElement( 'div' );
-				// earthMassDiv.className = 'label';
-				// earthMassDiv.textContent = '5.97237e24 kg';
-				// earthMassDiv.style.marginTop = '-1em';
-				// earthMassLabel = new CSS2DObject( earthMassDiv );
-				// earthMassLabel.position.set( 0, - 2 * EARTH_RADIUS, 0 );
-				//earth.add( earthMassLabel );
-
-				const moonDiv = document.createElement( 'div' );
-				moonDiv.className = 'label';
-				moonDiv.textContent = 'Moon';
-				moonDiv.style.marginTop = '-1em';
-				const moonLabel = new CSS2DObject( moonDiv );
-				moonLabel.position.set( 0, MOON_RADIUS, 0 );
-				moon.add( moonLabel );
-
-				const moonMassDiv = document.createElement( 'div' );
-				moonMassDiv.className = 'label';
-				moonMassDiv.textContent = '7.342e22 kg';
-				moonMassDiv.style.marginTop = '-1em';
-				const moonMassLabel = new CSS2DObject( moonMassDiv );
-				moonMassLabel.position.set( 0, - 2 * MOON_RADIUS, 0 );
-				moon.add( moonMassLabel );
-
-				labelRenderer = new CSS2DRenderer();
-				labelRenderer.setSize( sizes.width, sizes.height );
-				labelRenderer.domElement.style.position = 'fixed';
-				labelRenderer.domElement.style.top = '0px';
-				document.body.appendChild( labelRenderer.domElement );
+  earthButtonLabel = new CSS2DObject( earthButtonDiv );
+  //earthButtonLabel.position.set(0, 1, 0);
+  earthButtonDiv.addEventListener('mouseover', hamburgScaleUp, false);
+  earthButtonDiv.addEventListener('mouseout', hamburgScaleDown);
+  earth.add(earthButtonLabel);
 
 
+  
+  /////////////HAMBURG INFO/////////////////
+  earthDiv = document.createElement( 'div' );
+  let eStyle = earthDiv.style;
+  earthDiv.setAttribute('style', 'white-space: pre;');
+  earthDiv.className = 'hamburgText';
+  earthDiv.innerHTML = '<b>Havneprosjektet i Hamburg</b>';
+  //earthDiv.style.fontWeight = 'bold';
+  earthDiv.innerHTML += '\r\nHavnen i Hamburg er den nest-travleste i Europa \r\nog en handelsvei for store deler av Øst-Europa.\r\nDet er flere jobber dette havnevesenet må utføre, \r\nderfor er det viktig at de tilbyr en effektiv infrastruktur \r\ni havneområdet som: administrering av eiendom, \r\nvedlikehold av kaivegger, broer, brygger og diverse \r\nstrukturer, samt transport i form av skip, jernbane \r\nog lastebil. Diverse industrifirmaer administrerer \r\ncontainerterminalene. Det som gjør Hamburg \r\nspesielt, er at det har vært et samarbeid med \r\nprogramvarefirmaet SAP i en serie på 20 prosjekter \r\nsom ble kalt smartPORT Logistics. Prosjektene tar \r\ni bruk teknologier som Internet of Things til å \r\nskape et state-of-the-art logistikksystem som \r\neffektiviserer sub-sektorene med trafikk- og godsflyt \r\nog bedre infrastruktur.';
+  eStyle.background = 'rgb(24, 24, 24, 0.5)'
+  eStyle.padding = '15px';
+  eStyle.fontSize = '18px';
+  eStyle.margin = "10px";
+  eStyle.opacity = '0';
 
 
+  earthDiv.style.zIndex = 0;
+  //earthDiv.style.marginTop = '-1em';
+  earthLabel = new CSS2DObject( earthDiv );
+  earthLabel.position.set(0, 0, 0)
+  earth.add( earthLabel );
+  earth.polygonOffset = true;
+  earth.polygonOffset = 0;
+
+  earth.scale.set(0.5, 0.5, 0.5)
+  earth.position.set(1.8, -15, 27.5)
+  
+
+  // earthMassDiv = document.createElement( 'div' );
+  // earthMassDiv.className = 'label';
+  // earthMassDiv.textContent = '5.97237e24 kg';
+  // earthMassDiv.style.marginTop = '-1em';
+  // earthMassLabel = new CSS2DObject( earthMassDiv );
+  // earthMassLabel.position.set( 0, - 2 * EARTH_RADIUS, 0 );
+  //earth.add( earthMassLabel );
 
 
+  ////////////RENDERING FOR 2D LABELS///////////////
+  labelRenderer = new CSS2DRenderer();
+  labelRenderer.setSize( sizes.width, sizes.height );
+  labelRenderer.domElement.style.position = 'fixed';
+  labelRenderer.domElement.style.top = '0px';
+  document.body.appendChild( labelRenderer.domElement );
 
 
+  
+
+  function hamburgScaleUp() {
+    if (earthButtonDiv) {
+      // bStyle.padding = '20px';
+      // bStyle.fontSize = '20px'; 
+      bStyle.opacity = '0';
+      bStyle.content = '';
+      eStyle.opacity = '1';
+    }
+  }
+
+  function hamburgScaleDown() {
+    if (earthButtonDiv) {
+      // bStyle.padding = '15px';
+      // bStyle.fontSize = '18px'; 
+      earthButtonDiv.style.opacity = '1';
+      eStyle.opacity = '0';
+      eStyle.content = '';
+    }
+  }
 
 
-
-// load model
+///////////////LOAD PORT MODEL////////////////////
   loader.load('/models/port/port.glb', function (gltf) {
     
     //mesh = gltf.scene.children[0];
@@ -213,9 +238,9 @@ function init() {
     
     model = gltf.scene;
 
-    model.position.set( 2, -2, 26 );
+    model.position.set( 0.02, 0, 28 );
     model.rotation.set(0, 0, 0);
-    model.scale.set( 0.02, 0.02, 0.02 );
+    model.scale.set( 0.013, 0.013, 0.013 );
     modelY = model.position.y
     scene.add( model );
    
@@ -229,19 +254,19 @@ function init() {
   });
 
 
+  //////////////LOAD EARTH MODEL////////////////////
   earthModel = new THREE.Object3D();
-
   loader.load('/models/earth/scene.gltf', function (gltf) {
     
     
     earthModel = gltf.scene;
-    earthModel.position.set( 1.5, -11, 28 );
+    earthModel.position.set( 1.5, -16, 28 );
     earthModel.rotation.set(0, 0, 0);
     earthModel.scale.set( 1.2, 1.2, 1.2 );
     earthModel.name = "EarthModel";
-    var earthMesh = new THREE.Mesh();
-    let earthMeshMaterial = new THREE.MeshStandardMaterial();
 
+    // var earthMesh = new THREE.Mesh();
+    // let earthMeshMaterial = new THREE.MeshStandardMaterial();
     // gltf.scene.traverse(function (child) {
     //   if ((child).isMesh) {
     //       earthMesh = child
@@ -251,15 +276,13 @@ function init() {
     //       earthMeshMaterial.polygonOffsetUnit = 1;
     //       earthMeshMaterial.polygonOffsetFactor = -1;
     //   }})
-
-      var jorden = new THREE.Mesh(earthMesh.geometry, earthMeshMaterial)
-      jorden.scale.set(0.02,0.02,0.02)
-      scene.add(jorden)
-    earthMeshMaterial.transparent = true;
-  
-    earthMeshMaterial.polygonOffset = true;
-    earthMesh.position.set( 1.5, -11.5, 26 );
-    scene.add(earthMesh);
+    // var jorden = new THREE.Mesh(earthMesh.geometry, earthMeshMaterial)
+    // jorden.scale.set(0.02,0.02,0.02)
+    // scene.add(jorden)
+    // earthMeshMaterial.transparent = true;
+    // earthMeshMaterial.polygonOffset = true;
+    // earthMesh.position.set( 1.5, -11.5, 26 );
+    // scene.add(earthMesh);
 
     // earthModel.traverse((child) => {
     //   if(child.isMesh) {
@@ -273,8 +296,8 @@ function init() {
 
     // var jord = new THREE.Group();
     // jord.add(earthMesh);
-    
     //scene.add(jord);
+
     scene.add(earthModel);
 
   }, function ( xhr ) {
@@ -285,7 +308,7 @@ function init() {
     console.error(e);
   });
 
-  // Resize
+  //////////////////////WINDOW RESIZE//////////////////////////
   window.onresize = function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -302,16 +325,6 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight)
   document.body.appendChild(renderer.domElement)
   camera.position.setZ(30)
-
-  /////////////LABEL///////////
-
-  // const earth = scene.getObjectByName(earthModel.name)
-  // //const earth = scene.getObjectByName("earthModel");
-  // const earthMesh = new THREE.Mesh(earth.geometry, new THREE.MeshStandardMaterial());
-  // earthDiv = document.createElement( 'div' );
-  // earthDiv.className = 'label';
-  // earthDiv.textContent = 'Earth';
-  // //earthDiv.style.marginTop = '-1em';
 
   events();
 }
@@ -393,6 +406,7 @@ function init() {
   // staticSculpt.rotation.y = -1
   // staticSculpt.position.set(1.75, -5.65, 28)
 
+  
 
 
 // Textures
@@ -405,15 +419,16 @@ function init() {
 
 
 // Light
-// const ambiLight = new THREE.AmbientLight()
-// ambiLight.position.set(5, 5, 5)
-// scene.add(ambiLight)
+//const ambiLight = new THREE.AmbientLight()
+//ambiLight.position.set(5, 5, 5)
+//ambiLight.intensity = 10;
+//scene.add(ambiLight)
 
 /**
  * Scroll
  */
 
-// Events
+//////////////////////EVENTS///////////////////////
 function events() {
   window.addEventListener('scroll', () => {
     scrollY = window.scrollY;
@@ -437,87 +452,87 @@ function events() {
     window.onscroll = function() {};
   }
 
-  button.addEventListener("click", (event) => {
-    const target = model;
-    const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
-    button.style.display = 'none';
-    exitButton.style.display = 'block';
-    disableScroll();
-    new TWEEN.Tween(coords)
-    .to({ x: (target.position.x-offsetX), y: camera.position.y, z: (target.position.z + offsetZ) })
-      .onUpdate(() => 
-        camera.position.set(coords.x, coords.y, coords.z)
-      )
-      .start();
-  });
+  // button.addEventListener("click", (event) => {
+  //   const target = model;
+  //   const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  //   button.style.display = 'none';
+  //   exitButton.style.display = 'block';
+  //   disableScroll();
+  //   new TWEEN.Tween(coords)
+  //   .to({ x: (target.position.x-offsetX), y: camera.position.y, z: (target.position.z + offsetZ) })
+  //     .onUpdate(() => 
+  //       camera.position.set(coords.x, coords.y, coords.z)
+  //     )
+  //     .start();
+  // });
 
-  exitButton.addEventListener("click", (event) => {
-    camX = camera.position.x;
-    camY = camera.position.y;
-    camZ = camera.position.z;
-    const target = prevCam;
-    const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
-    button.style.display = 'block';
-    exitButton.style.display = 'none';
-    enableScroll();
-    new TWEEN.Tween(coords)
-      .to({ x: camX, y: camY, z: camZ })
-      .onUpdate(() => 
-        camera.position.set(coords.x, coords.y, coords.z)
-      )
-      .start();
-  });
+  // exitButton.addEventListener("click", (event) => {
+  //   camX = camera.position.x;
+  //   camY = camera.position.y;
+  //   camZ = camera.position.z;
+  //   const target = prevCam;
+  //   const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  //   button.style.display = 'block';
+  //   exitButton.style.display = 'none';
+  //   enableScroll();
+  //   new TWEEN.Tween(coords)
+  //     .to({ x: camX, y: camY, z: camZ })
+  //     .onUpdate(() => 
+  //       camera.position.set(coords.x, coords.y, coords.z)
+  //     )
+  //     .start();
+  // });
 
-  earthButton.addEventListener("click", (event) => {
-    const target = earthModel;
-    const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
-    const earthCoords = { x: earthModel.position.x, y: earthModel.position.y, z: earthModel.position.z }
-    const earthRotCoords = { x: earthModel.rotation.x, y: earthModel.rotation.y, z: earthModel.rotation.z }
-    prevCamEarth = coords;
-    earthButton.style.display = 'none';
-    earthExitButton.style.display = 'block';
-    stop = true;
-    disableScroll();
-    new TWEEN.Tween(coords)
-      .to({ x: target.position.x-0.5, y: target.position.y, z: (target.position.z +1.5) })
-      .onUpdate(() => 
-        camera.position.set(coords.x, coords.y, coords.z),
+  // earthButton.addEventListener("click", (event) => {
+  //   const target = earthModel;
+  //   const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  //   const earthCoords = { x: earthModel.position.x, y: earthModel.position.y, z: earthModel.position.z }
+  //   const earthRotCoords = { x: earthModel.rotation.x, y: earthModel.rotation.y, z: earthModel.rotation.z }
+  //   prevCamEarth = coords;
+  //   earthButton.style.display = 'none';
+  //   earthExitButton.style.display = 'block';
+  //   stop = true;
+  //   disableScroll();
+  //   new TWEEN.Tween(coords)
+  //     .to({ x: target.position.x-0.5, y: target.position.y, z: (target.position.z +1.5) })
+  //     .onUpdate(() => 
+  //       camera.position.set(coords.x, coords.y, coords.z),
 
-      )
-      .start();
+  //     )
+  //     .start();
 
-      new TWEEN.Tween(earthRotCoords)
-      .to({ x: earthModel.rotation.x, y: earthModel.rotation.y, z: (earthModel.rotation.z) })
-      .onUpdate(() => 
-        earthModel.rotation.set(0, -0.9, 0)
-      )
-      .start();
-  });
+  //     new TWEEN.Tween(earthRotCoords)
+  //     .to({ x: earthModel.rotation.x, y: earthModel.rotation.y, z: (earthModel.rotation.z) })
+  //     .onUpdate(() => 
+  //       earthModel.rotation.set(0, -0.9, 0)
+  //     )
+  //     .start();
+  // });
 
-  earthExitButton.addEventListener("click", (event) => {
-    const target = prevCamEarth;
-    const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
-    const earthCoords = { x: earthModel.position.x, y: earthModel.position.y, z: earthModel.position.z }
-    earthButton.style.display = 'block';
-    earthExitButton.style.display = 'none';
-    stop = false;
-    enableScroll();
+  // earthExitButton.addEventListener("click", (event) => {
+  //   const target = prevCamEarth;
+  //   const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  //   const earthCoords = { x: earthModel.position.x, y: earthModel.position.y, z: earthModel.position.z }
+  //   earthButton.style.display = 'block';
+  //   earthExitButton.style.display = 'none';
+  //   stop = false;
+  //   enableScroll();
 
-    new TWEEN.Tween(coords)
-      .to({x: camX, y: camY, z: camZ })
-      .onUpdate(() => 
-        camera.position.set(coords.x, coords.y, coords.z),
-        earthModel.position.set( 1.5, -11.5, 28 )
-      )
-      .start();
+  //   new TWEEN.Tween(coords)
+  //     .to({x: camX, y: camY, z: camZ })
+  //     .onUpdate(() => 
+  //       camera.position.set(coords.x, coords.y, coords.z),
+  //       earthModel.position.set( 1.5, -11.5, 28 )
+  //     )
+  //     .start();
 
-      new TWEEN.Tween(earthCoords)
-      .to({ x: earthModel.rotation.x, y: earthModel.rotation.y, z: (earthModel.rotation.z) })
-      .onUpdate(() => 
-        earthModel.rotation.set(0, 5,0)
-      )
-      .start();
-  });
+  //     new TWEEN.Tween(earthCoords)
+  //     .to({ x: earthModel.rotation.x, y: earthModel.rotation.y, z: (earthModel.rotation.z) })
+  //     .onUpdate(() => 
+  //       earthModel.rotation.set(0, 5,0)
+  //     )
+  //     .start();
+  // });
 }
 
 
@@ -548,7 +563,7 @@ function mouseRotate() {
 
     if (model) {
       
-      model.rotation.y += 0.5 * ( targetX - model.rotation.y );
+      model.rotation.y += 0.05 * ( targetX - model.rotation.y );
     }
   }
 
