@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js';
+import {OBJLoader} from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/OBJLoader.js';
 import {DRACOLoader} from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/DRACOLoader.js';
 import {RoomEnvironment} from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/environments/RoomEnvironment.js';
 import { TWEEN } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/libs/tween.module.min';
@@ -61,6 +62,12 @@ let earthGeometry;
 let earthMesh;
 let earthButtonDiv;
 let earthButtonLabel;
+let palmasButtonDiv;
+let palmasButtonLabel;
+let palmasInfoDiv;
+let palmasLabel;
+
+let wifiModel;
  
 let offsetZ = 2;
 let offsetX = 1;
@@ -127,7 +134,6 @@ function init() {
 
 
   const EARTH_RADIUS = 1;
-	const MOON_RADIUS = 0.27;
 
   const earthGeometry = new THREE.SphereGeometry( EARTH_RADIUS, 16, 16 );
   const earthMaterial = new THREE.MeshPhongMaterial( {
@@ -137,41 +143,36 @@ function init() {
   const earth = new THREE.Mesh( earthGeometry, earthMaterial );
   scene.add( earth );
 
-  const moonGeometry = new THREE.SphereGeometry( MOON_RADIUS, 16, 16 );
-  const moonMaterial = new THREE.MeshPhongMaterial( {
-    shininess: 5
-  } );
-  moon = new THREE.Mesh( moonGeometry, moonMaterial );
-  scene.add( moon );
-
   ////////////HAMBURG BUTTON///////////////////
   earthButtonDiv = document.createElement( 'div' );
   let bStyle = earthButtonDiv.style;
   earthButtonDiv.className = "hamburg";
-  bStyle.background = 'rgb(24, 24, 24, 0.5)';
+  bStyle.background =  'rgb(24, 24, 24)';
   bStyle.fontSize = '18px';
+  bStyle.borderRadius = '15px';
   bStyle.margin = "20px";
   bStyle.padding = "15px";
   bStyle.zIndex = "1000";
   earthButtonDiv.innerHTML = "Hamburg";
 
   earthButtonLabel = new CSS2DObject( earthButtonDiv );
-  //earthButtonLabel.position.set(0, 1, 0);
+  earthButtonLabel.position.set(-1, 1, 0);
   earthButtonDiv.addEventListener('mouseover', hamburgScaleUp, false);
   earthButtonDiv.addEventListener('mouseout', hamburgScaleDown);
   earth.add(earthButtonLabel);
 
 
-  
+
   /////////////HAMBURG INFO/////////////////
   earthDiv = document.createElement( 'div' );
   let eStyle = earthDiv.style;
   earthDiv.setAttribute('style', 'white-space: pre;');
   earthDiv.className = 'hamburgText';
-  earthDiv.innerHTML = '<b>Havneprosjektet i Hamburg</b>';
+  earthDiv.innerHTML = '<b>Havneprosjektet i Hamburg</b><br>';
   //earthDiv.style.fontWeight = 'bold';
   earthDiv.innerHTML += '\r\nHavnen i Hamburg er den nest-travleste i Europa \r\nog en handelsvei for store deler av Øst-Europa.\r\nDet er flere jobber dette havnevesenet må utføre, \r\nderfor er det viktig at de tilbyr en effektiv infrastruktur \r\ni havneområdet som: administrering av eiendom, \r\nvedlikehold av kaivegger, broer, brygger og diverse \r\nstrukturer, samt transport i form av skip, jernbane \r\nog lastebil. Diverse industrifirmaer administrerer \r\ncontainerterminalene. Det som gjør Hamburg \r\nspesielt, er at det har vært et samarbeid med \r\nprogramvarefirmaet SAP i en serie på 20 prosjekter \r\nsom ble kalt smartPORT Logistics. Prosjektene tar \r\ni bruk teknologier som Internet of Things til å \r\nskape et state-of-the-art logistikksystem som \r\neffektiviserer sub-sektorene med trafikk- og godsflyt \r\nog bedre infrastruktur.';
-  eStyle.background = 'rgb(24, 24, 24, 0.5)'
+  eStyle.background = 'rgb(24, 24, 24)'
+  eStyle.borderRadius = '5%';
   eStyle.padding = '15px';
   eStyle.fontSize = '18px';
   eStyle.margin = "10px";
@@ -187,7 +188,49 @@ function init() {
   earth.polygonOffset = 0;
 
   earth.scale.set(0.5, 0.5, 0.5)
-  earth.position.set(1.8, -15, 27.5)
+  earth.position.set(1.4, -15, 27.5)
+
+  ///////////////PALMAS BUTTON////////////////////
+  palmasButtonDiv = document.createElement( 'div' );
+  let pStyle = palmasButtonDiv.style;
+  palmasButtonDiv.className = "palmas";
+  pStyle.background =  'rgb(24, 24, 24)';
+  pStyle.fontSize = '18px';
+  pStyle.borderRadius = '15px';
+  pStyle.margin = "20px";
+  pStyle.padding = "15px";
+  pStyle.zIndex = "1000";
+  palmasButtonDiv.innerHTML = "Las Palmas";
+
+  palmasButtonLabel = new CSS2DObject( palmasButtonDiv );
+  palmasButtonLabel.position.set(-0.965, -1, 0);
+  palmasButtonDiv.addEventListener('mouseover', palmasScaleUp, false);
+  palmasButtonDiv.addEventListener('mouseout', palmasScaleDown);
+  earth.add(palmasButtonLabel);
+
+
+  /////////////PALMAS INFO/////////////////
+  palmasInfoDiv = document.createElement( 'div' );
+  let peStyle = palmasInfoDiv.style;
+  palmasInfoDiv.setAttribute('style', 'white-space: pre;');
+  palmasInfoDiv.className = 'palmasText';
+  palmasInfoDiv.innerHTML = '<b>Havneprosjektet i Las Palmas de Gran Canaria</b><br>';
+  //earthDiv.style.fontWeight = 'bold';
+  palmasInfoDiv.innerHTML += '\r\nHavnen i Las Palmas de Gran Canaria \r\ner en av de ledende på den vestlige kysten av Afrika, \r\nog er et knutepunkt som kobler Europa, Afrika og Amerika. \r\nDe styres av det lokale havnevesenet som er avhengig \r\nav å motta nøyaktig informasjon fra nære fartøy, \r\ncontainere, meteorologisk data, og sjøstanden. Når dataen \r\nblir samlet opp må aggregeringen av data prosesseres og \r\nforsikres. <br><br>Gjennom et prosjekt som stammer fra en rekke \r\ninteressenter kalt SmartPort, som tar i bruk diverse \r\nstatiske og dynamiske data. Noen eksempler på statiske \r\ndata i SmartPort er infrastruktur, hotel, restauranter, \r\nminibanker, bussholdeplasser og apotek. Sensorene \r\nfor disse dataene er plassert på faste steder \r\nsom tillater statisk lagring av koordinatene deres. \r\nEksempler på dynamiske data kommer fra bøyer \r\nog meteorologiske sensorer som oppdaterer med ny \r\ndata hvert 3. minutt. De meteorologiske sensorene tilbyr \r\ndata som: temperatur, vindhastighet og retning, \r\nvindkaststørrelse og retning, nedbør, trykk og fuktighet.';
+  peStyle.background = 'rgb(24, 24, 24)'
+  peStyle.borderRadius = '5%';
+  peStyle.padding = '15px';
+  peStyle.fontSize = '18px';
+  peStyle.margin = "10px";
+  peStyle.opacity = '0';
+
+
+  palmasInfoDiv.style.zIndex = 0;
+  //earthDiv.style.marginTop = '-1em';
+  palmasLabel = new CSS2DObject( palmasInfoDiv );
+  palmasLabel.position.set(0, 0, 0)
+  earth.add( palmasLabel );
+
   
 
   // earthMassDiv = document.createElement( 'div' );
@@ -210,25 +253,78 @@ function init() {
   
 
   function hamburgScaleUp() {
-    if (earthButtonDiv) {
+    
       // bStyle.padding = '20px';
       // bStyle.fontSize = '20px'; 
       bStyle.opacity = '0';
-      bStyle.content = '';
+      bStyle.content = 'none';
+      pStyle.opacity = '0';
+      pStyle.content = 'none';
       eStyle.opacity = '1';
-    }
+      eStyle.content = 'normal';
+    
   }
 
   function hamburgScaleDown() {
-    if (earthButtonDiv) {
       // bStyle.padding = '15px';
       // bStyle.fontSize = '18px'; 
       earthButtonDiv.style.opacity = '1';
+      bStyle.content = 'normal';
+      pStyle.opacity = '1';
+      pStyle.content = 'normal';
       eStyle.opacity = '0';
-      eStyle.content = '';
-    }
+      eStyle.content = 'none'
   }
 
+  function palmasScaleUp() {
+      // bStyle.padding = '20px';
+      // bStyle.fontSize = '20px'; 
+      pStyle.opacity = '0';
+      pStyle.content = 'none';
+      bStyle.opacity = '0';
+      bStyle.content = 'none';
+      peStyle.opacity = '1';
+      peStyle.content = 'normal';
+  }
+
+  function palmasScaleDown() {
+      // bStyle.padding = '15px';
+      // bStyle.fontSize = '18px'; 
+      pStyle.opacity = '1';
+      pStyle.content = 'normal';
+      earthButtonDiv.style.opacity = '1';
+      bStyle.content = 'normal';
+      peStyle.opacity = '0';
+      peStyle.content = 'none';
+  }
+
+////////////////////LOAD WIFI MODEL//////////////////
+const WIFIloader = new OBJLoader();
+wifiModel = new THREE.Object3D();
+
+  // load a resource
+  WIFIloader.load('/models/internet_logo.obj', function ( object ) {
+
+    object.scale.set(15, 15, 15)
+    object.position.set(1, -10.25, 26)
+    object.rotation.set(-5, 0, 0)
+    wifiModel = object;
+      scene.add( wifiModel );
+  
+    },
+    // called when loading is in progresses
+    function ( xhr ) {
+  
+      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+  
+    },
+    // called when loading has errors
+    function ( error ) {
+  
+      console.log( 'An error happened' );
+  
+    }
+  );
 
 ///////////////LOAD PORT MODEL////////////////////
   loader.load('/models/port/port.glb', function (gltf) {
@@ -260,7 +356,7 @@ function init() {
     
     
     earthModel = gltf.scene;
-    earthModel.position.set( 1.5, -16, 28 );
+    earthModel.position.set( 1, -16, 28 );
     earthModel.rotation.set(0, 0, 0);
     earthModel.scale.set( 1.2, 1.2, 1.2 );
     earthModel.name = "EarthModel";
@@ -599,7 +695,7 @@ function animate() {
   requestAnimationFrame( animate );
   TWEEN.update();
   camera.position.y = -scrollY * 2.5 / sizes.height;
-  
+  wifiModel.rotation.z += 0.005;
   //earthModel.rotation.y += 0.0005;
   //controls.update();
   //camera.position.z = defaultCamZ;
