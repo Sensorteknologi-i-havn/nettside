@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js';
@@ -67,7 +67,33 @@ let palmasButtonLabel;
 let palmasInfoDiv;
 let palmasLabel;
 
+let kafkaButtonDiv;
+let kafkaButtonLabel;
+let kafkaDiv;
+let kafkaLabel;
+
+let techButtonDiv;
+let techButtonLabel;
+let techDiv;
+let techLabel;
+
+let stromButtonDiv;
+let stromButtonLabel;
+let StromInfoDiv;
+let stromInfoLabel;
+
+let sjoButtonDiv;
+let sjoButtonLabel;
+let sjoInfoDiv;
+let sjoInfoLabel;
+
+let sensorButtonDiv;
+let sensorButtonLabel;
+let sensorInfoDiv;
+let sensorInfoLabel;
+
 let wifiModel;
+let tech;
  
 let offsetZ = 2;
 let offsetX = 1;
@@ -138,11 +164,316 @@ function init() {
   const earthGeometry = new THREE.SphereGeometry( EARTH_RADIUS, 16, 16 );
   const earthMaterial = new THREE.MeshPhongMaterial( {
     specular: 0x333333,
-    shininess: 5
+    shininess: 5,
+    opacity: 0
   } );
   const earth = new THREE.Mesh( earthGeometry, earthMaterial );
-  scene.add( earth );
+  tech = new THREE.Mesh( earthGeometry, earthMaterial );
+  const strom = new THREE.Mesh( earthGeometry, earthMaterial );
+  scene.add( earth, tech, strom );
 
+
+//////////////////STRØMANLEGG BUTTON////////////////
+stromButtonDiv = document.createElement( 'div' );
+let stromButtonStyle = stromButtonDiv.style;
+stromButtonDiv.className = "strom";
+stromButtonStyle.background =  'white'; // rgb(24, 24, 24)
+stromButtonStyle.color = 'black';
+stromButtonStyle.fontSize = '18px';
+stromButtonStyle.borderRadius = '15px';
+stromButtonStyle.margin = "20px";
+stromButtonStyle.padding = "15px";
+stromButtonStyle.zIndex = "999";
+stromButtonDiv.innerHTML = "Europas største <i class='fa fa-bolt'></i>";
+stromButtonDiv.style.zIndex = '99';
+
+stromButtonLabel = new CSS2DObject( stromButtonDiv );
+stromButtonLabel.position.set(11, 0.5, 0);
+stromButtonDiv.addEventListener('mouseover', nasjonalScaleUp, false);
+stromButtonDiv.addEventListener('mouseout', nasjonalScaleDown);
+
+strom.add(stromButtonLabel);
+strom.position.set(0, -12.5, 27)
+stromButtonLabel.position.set(0.225, -0.4, 2)
+
+
+/////////////////STROM INFO////////////////////
+StromInfoDiv = document.createElement( 'div' );
+let stromInfoStyle = StromInfoDiv.style;
+StromInfoDiv.setAttribute('style', 'white-space: pre;');
+StromInfoDiv.className = 'stromText';
+StromInfoDiv.innerHTML = '<b>Prosjektet "Europas største landstrømsanlegg"</b><br><br>';
+//earthDiv.style.fontWeight = 'bold';
+StromInfoDiv.innerHTML += 'er et av mange steg for elektrifiseringen av Kristiansand-regionen \r\nog resten av Agder. I Norge er vi forpliktet gjennom EUs \r\nklimarammeverk til å redusere utslipp med 40% innen 2030. \r\nElektrifiseringen av Kristiansand havn er en milepæl i \r\nhavnens, byens og regionens lange historie og kan ha \r\nimplikasjoner for hele den maritime industrien i Norge. \r\nEU har som mål å oppnå landstrømanlegg ved sine største havner \r\ninnen 2025. Anlegget ble installert i kristiansand havn høsten 2018. \r\nI tråd med denne ambisjonen har Kristiansand havn mottatt \r\nfinansiering for store deler av investeringen for å \r\noppnå ren og bærekraftig drift. ';
+stromInfoStyle.background = 'rgb(24, 24, 24)'
+stromInfoStyle.borderRadius = '5%';
+stromInfoStyle.padding = '15px';
+stromInfoStyle.fontSize = '18px';
+stromInfoStyle.margin = "10px";
+stromInfoStyle.opacity = '0';
+StromInfoDiv.style.zIndex = '0';
+//earthDiv.style.marginTop = '-1em';
+stromInfoLabel = new CSS2DObject( StromInfoDiv );
+stromInfoLabel.position.set(1.05, 0.05, 1)
+
+strom.add( stromInfoLabel );
+
+//////////////////DATASJØ BUTTON////////////////
+sjoButtonDiv = document.createElement( 'div' );
+let sjoButtonStyle = sjoButtonDiv.style;
+sjoButtonDiv.className = "sjo";
+sjoButtonStyle.background =  'white'; // rgb(24, 24, 24)
+sjoButtonStyle.color = 'black';
+sjoButtonStyle.fontSize = '18px';
+sjoButtonStyle.borderRadius = '15px';
+sjoButtonStyle.margin = "20px";
+sjoButtonStyle.padding = "15px";
+sjoButtonStyle.zIndex = "999";
+sjoButtonDiv.innerHTML = "Datasjø <i class='fa fa-tint'></i>";
+sjoButtonDiv.style.zIndex = '99';
+
+sjoButtonLabel = new CSS2DObject( sjoButtonDiv );
+sjoButtonLabel.position.set(11, 0.5, 0);
+sjoButtonDiv.addEventListener('mouseover', sjoScaleUp, false);
+sjoButtonDiv.addEventListener('mouseout', sjoScaleDown);
+
+strom.add(sjoButtonLabel);
+strom.position.set(0, -12.5, 27)
+sjoButtonLabel.position.set(0.5, -0.4, 2)
+
+///////////////DATASJØ INFO/////////////////////
+sjoInfoDiv = document.createElement( 'div' );
+let sjoInfoStyle = sjoInfoDiv.style;
+sjoInfoDiv.setAttribute('style', 'white-space: pre;');
+sjoInfoDiv.className = 'sjoText';
+sjoInfoDiv.innerHTML = '<b>Prosjektet “Datasjøen”<b><br><br>';
+//earthDiv.style.fontWeight = 'bold';
+sjoInfoDiv.innerHTML += 'Stavanger kommune beskriver “Datasjøen” som et system med mulighet \r\nfor å  lagre og dele data. I følge Kommunal- og \r\nmoderniseringsdepartementets digitaliseringsstrategi, en digital offentlig \r\nsektor legges det frem med; en metode for lagring av alle former for \r\ndata og kan sammenliknes med et sentralt datalager for alle typer \r\ndata: strukturerte og ustrukturerte, både dokumenter og logger, \r\nbilder, lyd og video. Hensikten med datasjøen vil hovedsakelig legge \r\ntil rette for effektiv og standardisert datadeling på en sikker måte. \r\nDet innebærer at hver enkelt kommune eier sine data, og styrer hvem \r\nsom skal ha tilgang til disse. Med dette blir de enkelte kommunenes \r\nbehov for å kontrollere tilgang og eierskap til data ivaretatt, \r\nsamtidig som kommunene kan utnytte fordelene med å samkjøre \r\ndrift og forvaltning av “datasjøen” til en lavere kostnad.';
+sjoInfoStyle.background = 'rgb(24, 24, 24)'
+sjoInfoStyle.borderRadius = '5%';
+sjoInfoStyle.padding = '15px';
+sjoInfoStyle.fontSize = '18px';
+sjoInfoStyle.margin = "10px";
+sjoInfoStyle.opacity = '0';
+sjoInfoDiv.style.zIndex = '0';
+//earthDiv.style.marginTop = '-1em';
+sjoInfoLabel = new CSS2DObject( sjoInfoDiv );
+sjoInfoLabel.position.set(1.55, 0.2, 0)
+
+strom.add( sjoInfoLabel );
+
+
+/////////////////SENSOR BUTTON////////////////
+sensorButtonDiv = document.createElement( 'div' );
+let sensorButtonStyle = sensorButtonDiv.style;
+sensorButtonDiv.className = "sensor";
+sensorButtonStyle.background =  'white'; // rgb(24, 24, 24)
+sensorButtonStyle.color = 'black';
+sensorButtonStyle.fontSize = '18px';
+sensorButtonStyle.borderRadius = '15px';
+sensorButtonStyle.margin = "20px";
+sensorButtonStyle.padding = "15px";
+sensorButtonStyle.zIndex = "999";
+sensorButtonDiv.innerHTML = "Sensornettverk <i class='fa fa-rss'></i>";
+sensorButtonDiv.style.zIndex = '99';
+
+sensorButtonLabel = new CSS2DObject( sensorButtonDiv );
+sensorButtonLabel.position.set(11, 0.5, 0);
+sensorButtonDiv.addEventListener('mouseover', sensorScaleUp, false);
+sensorButtonDiv.addEventListener('mouseout', sensorScaleDown);
+
+strom.add(sensorButtonLabel);
+sensorButtonLabel.position.set(0.78, -0.4, 2)
+
+///////////////SENSOR INFO/////////////////////
+sensorInfoDiv = document.createElement( 'div' );
+let sensorInfoStyle = sensorInfoDiv.style;
+sensorInfoDiv.setAttribute('style', 'white-space: pre;');
+sensorInfoDiv.className = 'sjoText';
+sensorInfoDiv.innerHTML = '<b>Prosjektet “LoRaWAN Sensornettverk”<b><br><br>';
+//earthDiv.style.fontWeight = 'bold';
+sensorInfoDiv.innerHTML += 'En viktig byggestein ved utviklingen av smartby og havn ved Stavanger, \r\ner sensorer som måler og teller. Hensikten med dette er for \r\nå; måle temperatur, støynivå, forbipasseringer i handlegaten, vannstand, \r\nCO2 i kontorer og klasserom, ledige parkeringsplasser og mer. Av disse \r\nsensorene kan en koble sammen sensordata og åpne data for å lage \r\nnye og nyttige tjenester til innbyggerne, som “kan hjelpe dem \r\nå ta smartere valg i hverdagen”.';
+sensorInfoStyle.background = 'rgb(24, 24, 24)'
+sensorInfoStyle.borderRadius = '5%';
+sensorInfoStyle.padding = '15px';
+sensorInfoStyle.fontSize = '18px';
+sensorInfoStyle.margin = "10px";
+sensorInfoStyle.opacity = '0';
+
+//earthDiv.style.marginTop = '-1em';
+sensorInfoLabel = new CSS2DObject( sensorInfoDiv );
+sensorInfoLabel.position.set(1.5, 0, 0)
+
+strom.add( sensorInfoLabel );
+
+
+
+function nasjonalScaleUp() {
+  if (stromButtonLabel) {
+    stromButtonStyle.background = 'rgb(24, 24, 24)';
+    stromButtonStyle.color = 'white';
+    stromButtonStyle.content = 'none';
+    stromInfoStyle.opacity = '1';
+    stromInfoStyle.content = 'normal';
+  }
+}
+
+function nasjonalScaleDown() {
+  stromButtonStyle.background = 'white';
+  stromButtonStyle.color = 'rgb(24, 24, 24)';
+  stromInfoStyle.opacity = '0';
+  stromInfoStyle.content = 'none';
+}
+
+function sjoScaleUp() {
+    sjoButtonStyle.background = 'rgb(24, 24, 24)';
+    sjoButtonStyle.color = 'white';
+    sjoButtonStyle.content = 'none';
+    sjoInfoStyle.opacity = '1';
+    sjoInfoStyle.content = 'normal';
+}
+
+function sjoScaleDown() {
+  sjoButtonStyle.background = 'white';
+  sjoButtonStyle.color = 'rgb(24, 24, 24)';
+  sjoInfoStyle.opacity = '0';
+  sjoInfoStyle.content = 'none';
+}
+
+function sensorScaleUp() {
+    sensorButtonStyle.background = 'rgb(24, 24, 24)';
+    sensorButtonStyle.color = 'white';
+    sensorButtonStyle.content = 'none';
+    sensorInfoStyle.opacity = '1';
+    sensorInfoStyle.content = 'normal';
+}
+
+function sensorScaleDown() {
+  sensorButtonStyle.background = 'white';
+  sensorButtonStyle.color = 'rgb(24, 24, 24)';
+  sensorInfoStyle.opacity = '0';
+  sensorInfoStyle.content = 'none';
+}
+
+
+/////////////////TEKNOLOGIES////////////////////////
+//////////////////KAFKA BUTTON/////////////////////
+  kafkaButtonDiv = document.createElement( 'div' );
+  let pkafkaStyle = kafkaButtonDiv.style;
+  kafkaButtonDiv.className = "kafka";
+  pkafkaStyle.background =  'white';
+  pkafkaStyle.fontSize = '18px';
+  pkafkaStyle.color = 'black';
+  pkafkaStyle.borderRadius = '15px';
+  pkafkaStyle.margin = "20px";
+  pkafkaStyle.padding = "15px";
+  pkafkaStyle.zIndex = "999";
+  kafkaButtonDiv.innerHTML = "Apache Kafka";
+  kafkaButtonDiv.style.zIndex = '99';
+
+  kafkaButtonLabel = new CSS2DObject( kafkaButtonDiv );
+  kafkaButtonLabel.position.set(11.25, 1.5, 0);
+  kafkaButtonDiv.addEventListener('mouseover', kafkaScaleUp, false);
+  kafkaButtonDiv.addEventListener('mouseout', kafkaScaleDown);
+  tech.add(kafkaButtonLabel);
+  
+
+  /////////////////KAFKA INFO////////////////////
+  kafkaDiv = document.createElement( 'div' );
+  let kafkaStyle = kafkaDiv.style;
+  kafkaDiv.setAttribute('style', 'white-space: pre;');
+  kafkaDiv.className = 'kafkaText';
+  kafkaDiv.innerHTML = '<b>Apache Kafka</b><br><br>';
+  //earthDiv.style.fontWeight = 'bold';
+  kafkaDiv.innerHTML += 'er et åpent kildekode-programvare som er designet for å \r\nhåndtere store mengder data. Kafka har som mål \r\nå tilby en enhetlig plattform med høy gjennomstrømning \r\nog lav latens for håndtering av sanntidsdatastrømmer. \r\nKafka kan håndtere «high-velocity» data på en ny \r\nmåte som ikke er tilgjengelig hos andrel. Apache \r\nkafka blir brukt for innhenting/absorbering av sensordata. \r\nKlienten kan koble seg til en av instansene for å \r\nhente inn data og informasjon. Denne arkitekturen \r\nsammen med TCP-sockets tilbyr maksimal gjennomstrømming \r\nog skalerbarhet. '
+  kafkaStyle.background = 'rgb(24, 24, 24)'
+  kafkaStyle.borderRadius = '5%';
+  kafkaStyle.padding = '15px';
+  kafkaStyle.fontSize = '18px';
+  kafkaStyle.margin = "10px";
+  kafkaStyle.opacity = '0';
+  kafkaDiv.style.zIndex = '0';
+  //earthDiv.style.marginTop = '-1em';
+  kafkaLabel = new CSS2DObject( kafkaDiv );
+  kafkaLabel.position.set(8.5, 1, 0)
+  tech.add( kafkaLabel );
+
+  tech.scale.set(0.5,0.5,0.5)
+  tech.position.set(-3, -10.5, 27.5);
+  tech.polygonOffset = true;
+  tech.polygonOffset = 0;
+  
+  function kafkaScaleUp() {
+    pkafkaStyle.opacity = '0';
+    pkafkaStyle.content = 'none';
+    kafkaStyle.opacity = '1';
+    kafkaStyle.content = 'normal';
+  }
+
+  function kafkaScaleDown() {
+    pkafkaStyle.opacity = '1';
+    pkafkaStyle.content = 'normal';
+    kafkaStyle.opacity = '0';
+    kafkaStyle.content = 'none';
+  }
+
+  //////////////////TECH BUTTON/////////////////////
+  techButtonDiv = document.createElement( 'div' );
+  let techButtonStyle = techButtonDiv.style;
+  techButtonDiv.className = "kafka";
+  techButtonStyle.background =  'white'; // rgb(24, 24, 24)
+  techButtonStyle.color = 'black';
+  techButtonStyle.fontSize = '18px';
+  techButtonStyle.borderRadius = '15px';
+  techButtonStyle.margin = "20px";
+  techButtonStyle.padding = "15px";
+  techButtonStyle.zIndex = "999";
+  techButtonDiv.innerHTML = "Tech";
+  techButtonDiv.style.zIndex = '99';
+
+  techButtonLabel = new CSS2DObject( techButtonDiv );
+  techButtonLabel.position.set(11, 0.5, 0);
+  techButtonDiv.addEventListener('mouseover', techScaleUp, false);
+  techButtonDiv.addEventListener('mouseout', techScaleDown);
+  tech.add(techButtonLabel);
+  
+
+  /////////////////TECH INFO////////////////////
+  techDiv = document.createElement( 'div' );
+  let techStyle = techDiv.style;
+  techDiv.setAttribute('style', 'white-space: pre;');
+  techDiv.className = 'kafkaText';
+  techDiv.innerHTML = '<b>MQTT vs. OPC UA vs. APACHE KAFKA</b><br><br>';
+  //earthDiv.style.fontWeight = 'bold';
+  techDiv.innerHTML += 'MQTT (Message Queuing Telemetry Transport) og \r\nOPC UA (Open Platform Communications United Architecture) \r\ner “open platform” standarder for datautveksling innenfor \r\nindustri 4.0 og Industrial Internet of Things (IIOT). Et problem \r\nsom oppstår er at eldre IT-miljøer fortsatt må bli tatt i bruk, \r\nogså i industri 4.0, noe som setter begrensinger for integrering. \r\nKafka kan anses som komplementært, og ikke en konkurrent til\r\n MQTT og OPC UA. Det kan være vanskelig å vite hvilken \r\nstruktur som burde bli valgt mellom MQTT og \r\nOPC UA sammen med Kafka. Først og fremst er denne \r\ndiskusjonen kun relevant hvis har et valg.';
+  techStyle.background = 'rgb(24, 24, 24)'
+  techStyle.borderRadius = '5%';
+  techStyle.padding = '15px';
+  techStyle.fontSize = '18px';
+  techStyle.margin = "10px";
+  techStyle.opacity = '0';
+  techDiv.style.zIndex = '10';
+  //earthDiv.style.marginTop = '-1em';
+  techLabel = new CSS2DObject( techDiv );
+  techLabel.position.set(8.5, 1, 0)
+  tech.add( techLabel );
+
+  function techScaleUp() {
+    techButtonStyle.opacity = '0';
+    techButtonStyle.content = 'none';
+    techStyle.opacity = '1';
+    techStyle.content = 'normal';
+  }
+
+  function techScaleDown() {
+    techButtonStyle.opacity = '1';
+    techButtonStyle.content = 'normal';
+    techStyle.opacity = '0';
+    techStyle.content = 'none';
+  }
+
+
+/////////////////INTERNATIONAL//////////////////////
   ////////////HAMBURG BUTTON///////////////////
   earthButtonDiv = document.createElement( 'div' );
   let bStyle = earthButtonDiv.style;
@@ -161,8 +492,6 @@ function init() {
   earthButtonDiv.addEventListener('mouseout', hamburgScaleDown);
   earth.add(earthButtonLabel);
 
-
-
   /////////////HAMBURG INFO/////////////////
   earthDiv = document.createElement( 'div' );
   let eStyle = earthDiv.style;
@@ -171,13 +500,13 @@ function init() {
   earthDiv.innerHTML = '<b>Havneprosjektet i Hamburg</b><br>';
   //earthDiv.style.fontWeight = 'bold';
   earthDiv.innerHTML += '\r\nHavnen i Hamburg er den nest-travleste i Europa \r\nog en handelsvei for store deler av Øst-Europa.\r\nDet er flere jobber dette havnevesenet må utføre, \r\nderfor er det viktig at de tilbyr en effektiv infrastruktur \r\ni havneområdet som: administrering av eiendom, \r\nvedlikehold av kaivegger, broer, brygger og diverse \r\nstrukturer, samt transport i form av skip, jernbane \r\nog lastebil. Diverse industrifirmaer administrerer \r\ncontainerterminalene. Det som gjør Hamburg \r\nspesielt, er at det har vært et samarbeid med \r\nprogramvarefirmaet SAP i en serie på 20 prosjekter \r\nsom ble kalt smartPORT Logistics. Prosjektene tar \r\ni bruk teknologier som Internet of Things til å \r\nskape et state-of-the-art logistikksystem som \r\neffektiviserer sub-sektorene med trafikk- og godsflyt \r\nog bedre infrastruktur.';
-  eStyle.background = 'rgb(24, 24, 24)'
+  eStyle.background = 'rgb(24, 24, 24)';
   eStyle.borderRadius = '5%';
   eStyle.padding = '15px';
   eStyle.fontSize = '18px';
   eStyle.margin = "10px";
   eStyle.opacity = '0';
-
+  
 
   earthDiv.style.zIndex = 0;
   //earthDiv.style.marginTop = '-1em';
@@ -303,11 +632,11 @@ const WIFIloader = new OBJLoader();
 wifiModel = new THREE.Object3D();
 
   // load a resource
-  WIFIloader.load('/models/internet_logo.obj', function ( object ) {
+  WIFIloader.load('/models/wifi.obj', function ( object ) {
 
     object.scale.set(15, 15, 15)
-    object.position.set(1, -10.25, 26)
-    object.rotation.set(-5, 0, 0)
+    object.position.set(1, -10.4, 28)
+    object.rotation.set(0, 0, 0)
     wifiModel = object;
       scene.add( wifiModel );
   
@@ -404,13 +733,8 @@ wifiModel = new THREE.Object3D();
     console.error(e);
   });
 
-  //////////////////////WINDOW RESIZE//////////////////////////
-  window.onresize = function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  }
+  
 
   renderer.setClearAlpha(0)
   renderer.setSize(sizes.width, sizes.height)
@@ -425,6 +749,13 @@ wifiModel = new THREE.Object3D();
   events();
 }
 
+ //////////////////////WINDOW RESIZE//////////////////////////
+ window.onresize = function () {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
 
   // let renderer3d = new CSS3DRenderer();
   // renderer3d.setSize(window.innerWidth, window.innerHeight);
@@ -515,10 +846,9 @@ wifiModel = new THREE.Object3D();
 
 
 // Light
-//const ambiLight = new THREE.AmbientLight()
-//ambiLight.position.set(5, 5, 5)
-//ambiLight.intensity = 10;
-//scene.add(ambiLight)
+// const ambiLight = new THREE.AmbientLight()
+// ambiLight.position.set(5, 5, 5)
+// scene.add(ambiLight)
 
 /**
  * Scroll
@@ -654,7 +984,7 @@ function mouseRotate() {
 
       earthModel.rotation.y += 0.05 * ( targetX - earthModel.rotation.y );
       //earthModel.rotation.z += 0.05 * ( targetx - earthModel.rotation.x );
-
+      //earth.rotation.y += 0.05 * ( targetX - earthModel.rotation.y );
     }
 
     if (model) {
@@ -684,6 +1014,10 @@ window.addEventListener('resize', () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+function updatePosition() {
+
+}
+
 
 function animate() {
   let clock = new THREE.Clock();
@@ -695,7 +1029,8 @@ function animate() {
   requestAnimationFrame( animate );
   TWEEN.update();
   camera.position.y = -scrollY * 2.5 / sizes.height;
-  wifiModel.rotation.z += 0.005;
+  wifiModel.rotation.y += 0.005;
+  //tech.rotation.y += 0.005
   //earthModel.rotation.y += 0.0005;
   //controls.update();
   //camera.position.z = defaultCamZ;

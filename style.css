@@ -239,6 +239,56 @@ content: '';
   margin-bottom: var(--spacing);
 }
 
+.infobutton {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+}
+
+.infobutton-title {
+  width: 35%;
+  height: 20%;
+  border-radius: 15px;
+  padding: 1%;
+  opacity: 0;
+  text-align: center;
+  background-color: blue;
+  transform: translate(85%, 500%);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.infobutton-content {
+  width: 100%;
+  height: 20%;
+  position: relative;
+  border-radius: 15px;
+  padding: 1%;
+  text-align: center;
+  background: blue;
+  transition: opacity .2s ease-in-out;
+  opacity: 0;
+}
+
+.kafka-title:hover {
+  opacity: 0;
+}
+
+.ship {
+  width:100px;
+  height: 100px;
+  position: absolute;
+  align-items: center;
+  background-color: black;
+}
+
+#shipicon {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+
 .lable {
   transform: translate(80px, 258px);
   background-color: white;
