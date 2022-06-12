@@ -126,6 +126,26 @@ p{
 margin-bottom: 10px;
 }
 
+.senk1{
+  width: 40%;
+}
+
+.senk2{
+  transform: translate(0, 18%);
+  width: 40%;
+}
+
+.senk3{
+  transform: translate(0, 24%);
+  width: 40%;
+}
+
+.senk4{
+  transform: translate(0, 14%);
+  width: 40%;
+}
+
+
 .about-us{
  padding-top: 10px;
 }
@@ -177,34 +197,6 @@ margin-top: 5px;
   margin-bottom: auto;
 }
 
-.accordion {
-  background-color: #376d9a;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 16px;
-  font-style: italic;
-  transition: 0.4s;
-  line-height: 1.45em;
- 
-}
-
-.active, .accordion:hover {
-  background-color: #285376; 
- 
-}
-
-.panel {
-  padding: 0 18px;
-  display: none;
-  background-color:#4682B4 ;
-  overflow: hidden;
-  
-}
 
 .header {
   background: var(--dark-bg); /* svart bakgrunn på header*/
