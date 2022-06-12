@@ -101,6 +101,8 @@ let portModel;
 let satearthModel;
 let satelitteModel;
 let norgeModel;
+let pointModel;
+let userModel;
  
 let offsetZ = 2;
 let offsetX = 1;
@@ -811,7 +813,7 @@ wifiModel = new THREE.Object3D();
     
     satearthModel = gltf.scene;
     satearthModel.position.set( 1, -3.4, 0 );
-    satearthModel.scale.set(0.8, 0.8, 0.8)
+    satearthModel.scale.set(0.8, 0.8, 0.8 )
     satearthModel.rotation.set(0, 0, 0)
     satearthModel.name = "satearthModel";
     scene.add(satearthModel);
@@ -831,8 +833,8 @@ wifiModel = new THREE.Object3D();
     
     satelitteModel = gltf.scene;
     satelitteModel.scale.set(0.00005, 0.00005, 0.00005)
-    satelitteModel.rotation.set(0, 1.5, 0)
-    satelitteModel.position.set( -1, 1, 0 );
+    satelitteModel.rotation.set(-1, -1, 0)
+    satelitteModel.position.set( -2, 1, 0 );
     satelitteModel.name = "satelitteModel";
     satearthModel.add(satelitteModel)
 
@@ -865,6 +867,46 @@ wifiModel = new THREE.Object3D();
   }, undefined, function (e) {
     console.error(e);
   });
+
+  /////////////////////LOAD USER////////////////////////////
+  userModel = new THREE.Object3D();
+  loader.load('/models/glass/scene.gltf', function (gltf) {
+    
+    
+    userModel = gltf.scene;
+    userModel.scale.set(0.3, 0.3, 0.3)
+    userModel.rotation.set(0, -0.5, 0)
+    userModel.position.set( 1, -7.5, 0 );
+    userModel.name = "userModel";
+    scene.add(userModel)
+
+  }, function ( xhr ) {
+
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+  }, undefined, function (e) {
+    console.error(e);
+  });
+
+   /////////////////////LOAD EXCLAMATION POINT////////////////////////////
+  //  pointModel = new THREE.Object3D();
+  //  loader.load('/models/person/excl/scene.gltf', function (gltf) {
+     
+     
+  //   pointModel = gltf.scene;
+  //   pointModel.scale.set(0.01, 0.01, 0.01)
+  //   pointModel.rotation.set(0, 0, 0)
+  //   pointModel.position.set( 1.3, -7.1, 0 );
+  //   pointModel.name = "pointModel";
+  //    scene.add(pointModel)
+ 
+  //  }, function ( xhr ) {
+ 
+  //    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+ 
+  //  }, undefined, function (e) {
+  //    console.error(e);
+  //  });
 
 
 
