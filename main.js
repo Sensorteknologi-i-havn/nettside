@@ -94,6 +94,10 @@ let sensorInfoLabel;
 
 let wifiModel;
 let tech;
+
+let neuronModel;
+let boatModel;
+let portModel;
  
 let offsetZ = 2;
 let offsetX = 1;
@@ -126,6 +130,7 @@ function init() {
   // @param: FOV, Aspect Ratio, 2 x View Frustrum
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   defaultCam = {x: camera.position.x, y: camera.position.y, z: camera.position.z};
+  camera.position.setZ(2)
   //const camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 ); 
 
   // Renderer
@@ -167,6 +172,7 @@ function init() {
     shininess: 5,
     opacity: 0
   } );
+  earthMaterial.transparency = true;
   const earth = new THREE.Mesh( earthGeometry, earthMaterial );
   tech = new THREE.Mesh( earthGeometry, earthMaterial );
   const strom = new THREE.Mesh( earthGeometry, earthMaterial );
@@ -188,13 +194,14 @@ stromButtonDiv.innerHTML = "Europas største <i class='fa fa-bolt'></i>";
 stromButtonDiv.style.zIndex = '99';
 
 stromButtonLabel = new CSS2DObject( stromButtonDiv );
-stromButtonLabel.position.set(11, 0.5, 0);
+stromButtonLabel.position.set(0.5, -1.5, 0);
 stromButtonDiv.addEventListener('mouseover', nasjonalScaleUp, false);
 stromButtonDiv.addEventListener('mouseout', nasjonalScaleDown);
 
 strom.add(stromButtonLabel);
-strom.position.set(0, -12.5, 27)
-stromButtonLabel.position.set(0.225, -0.4, 2)
+strom.position.set(0, 0, 0)
+strom.scale.set(0.5,0.5,0.5)
+
 
 
 /////////////////STROM INFO////////////////////
@@ -214,7 +221,7 @@ stromInfoStyle.opacity = '0';
 StromInfoDiv.style.zIndex = '0';
 //earthDiv.style.marginTop = '-1em';
 stromInfoLabel = new CSS2DObject( StromInfoDiv );
-stromInfoLabel.position.set(1.05, 0.05, 1)
+stromInfoLabel.position.set(1.8, 0.1, 0)
 
 strom.add( stromInfoLabel );
 
@@ -233,13 +240,13 @@ sjoButtonDiv.innerHTML = "Datasjø <i class='fa fa-tint'></i>";
 sjoButtonDiv.style.zIndex = '99';
 
 sjoButtonLabel = new CSS2DObject( sjoButtonDiv );
-sjoButtonLabel.position.set(11, 0.5, 0);
+sjoButtonLabel.position.set(1.6, -1.5, 0)
 sjoButtonDiv.addEventListener('mouseover', sjoScaleUp, false);
 sjoButtonDiv.addEventListener('mouseout', sjoScaleDown);
 
 strom.add(sjoButtonLabel);
-strom.position.set(0, -12.5, 27)
-sjoButtonLabel.position.set(0.5, -0.4, 2)
+strom.position.set(0, -12.5, 0)
+
 
 ///////////////DATASJØ INFO/////////////////////
 sjoInfoDiv = document.createElement( 'div' );
@@ -258,7 +265,7 @@ sjoInfoStyle.opacity = '0';
 sjoInfoDiv.style.zIndex = '0';
 //earthDiv.style.marginTop = '-1em';
 sjoInfoLabel = new CSS2DObject( sjoInfoDiv );
-sjoInfoLabel.position.set(1.55, 0.2, 0)
+sjoInfoLabel.position.set(1.95, 0.3, 0)
 
 strom.add( sjoInfoLabel );
 
@@ -278,12 +285,11 @@ sensorButtonDiv.innerHTML = "Sensornettverk <i class='fa fa-rss'></i>";
 sensorButtonDiv.style.zIndex = '99';
 
 sensorButtonLabel = new CSS2DObject( sensorButtonDiv );
-sensorButtonLabel.position.set(11, 0.5, 0);
+sensorButtonLabel.position.set(2.7, -1.5, 0);
 sensorButtonDiv.addEventListener('mouseover', sensorScaleUp, false);
 sensorButtonDiv.addEventListener('mouseout', sensorScaleDown);
 
 strom.add(sensorButtonLabel);
-sensorButtonLabel.position.set(0.78, -0.4, 2)
 
 ///////////////SENSOR INFO/////////////////////
 sensorInfoDiv = document.createElement( 'div' );
@@ -302,7 +308,7 @@ sensorInfoStyle.opacity = '0';
 
 //earthDiv.style.marginTop = '-1em';
 sensorInfoLabel = new CSS2DObject( sensorInfoDiv );
-sensorInfoLabel.position.set(1.5, 0, 0)
+sensorInfoLabel.position.set(1.9, 0.05, 0)
 
 strom.add( sensorInfoLabel );
 
@@ -368,11 +374,11 @@ function sensorScaleDown() {
   pkafkaStyle.margin = "20px";
   pkafkaStyle.padding = "15px";
   pkafkaStyle.zIndex = "999";
-  kafkaButtonDiv.innerHTML = "Apache Kafka";
+  kafkaButtonDiv.innerHTML = "Kafka";
   kafkaButtonDiv.style.zIndex = '99';
 
   kafkaButtonLabel = new CSS2DObject( kafkaButtonDiv );
-  kafkaButtonLabel.position.set(11.25, 1.5, 0);
+  kafkaButtonLabel.position.set(-4.5, -2.5, 0);
   kafkaButtonDiv.addEventListener('mouseover', kafkaScaleUp, false);
   kafkaButtonDiv.addEventListener('mouseout', kafkaScaleDown);
   tech.add(kafkaButtonLabel);
@@ -395,24 +401,24 @@ function sensorScaleDown() {
   kafkaDiv.style.zIndex = '0';
   //earthDiv.style.marginTop = '-1em';
   kafkaLabel = new CSS2DObject( kafkaDiv );
-  kafkaLabel.position.set(8.5, 1, 0)
+  kafkaLabel.position.set(-3.5, 0, 0)
   tech.add( kafkaLabel );
 
-  tech.scale.set(0.5,0.5,0.5)
-  tech.position.set(-3, -10.5, 27.5);
+  tech.scale.set(0.3,0.3,0.3)
+  tech.position.set(2, -10, 0);
   tech.polygonOffset = true;
   tech.polygonOffset = 0;
   
   function kafkaScaleUp() {
-    pkafkaStyle.opacity = '0';
-    pkafkaStyle.content = 'none';
+    pkafkaStyle.background = 'rgb(24, 24, 24)';
+    pkafkaStyle.color = 'white';
     kafkaStyle.opacity = '1';
     kafkaStyle.content = 'normal';
   }
 
   function kafkaScaleDown() {
-    pkafkaStyle.opacity = '1';
-    pkafkaStyle.content = 'normal';
+    pkafkaStyle.background = 'white';
+    pkafkaStyle.color = 'rgb(24, 24, 24)';
     kafkaStyle.opacity = '0';
     kafkaStyle.content = 'none';
   }
@@ -432,7 +438,7 @@ function sensorScaleDown() {
   techButtonDiv.style.zIndex = '99';
 
   techButtonLabel = new CSS2DObject( techButtonDiv );
-  techButtonLabel.position.set(11, 0.5, 0);
+  techButtonLabel.position.set(-2.5, -2.5, 0);
   techButtonDiv.addEventListener('mouseover', techScaleUp, false);
   techButtonDiv.addEventListener('mouseout', techScaleDown);
   tech.add(techButtonLabel);
@@ -455,19 +461,19 @@ function sensorScaleDown() {
   techDiv.style.zIndex = '10';
   //earthDiv.style.marginTop = '-1em';
   techLabel = new CSS2DObject( techDiv );
-  techLabel.position.set(8.5, 1, 0)
+  techLabel.position.set(-3.5, 0.2, 0)
   tech.add( techLabel );
 
   function techScaleUp() {
-    techButtonStyle.opacity = '0';
-    techButtonStyle.content = 'none';
+    techButtonStyle.background = 'rgb(24, 24, 24)';
+    techButtonStyle.color = 'white';
     techStyle.opacity = '1';
     techStyle.content = 'normal';
   }
 
   function techScaleDown() {
-    techButtonStyle.opacity = '1';
-    techButtonStyle.content = 'normal';
+    techButtonStyle.background = 'white';
+    techButtonStyle.color = 'rgb(24, 24, 24)';
     techStyle.opacity = '0';
     techStyle.content = 'none';
   }
@@ -478,7 +484,8 @@ function sensorScaleDown() {
   earthButtonDiv = document.createElement( 'div' );
   let bStyle = earthButtonDiv.style;
   earthButtonDiv.className = "hamburg";
-  bStyle.background =  'rgb(24, 24, 24)';
+  bStyle.background =  'white';
+  bStyle.color = 'rgb(24, 24, 24)';
   bStyle.fontSize = '18px';
   bStyle.borderRadius = '15px';
   bStyle.margin = "20px";
@@ -487,7 +494,7 @@ function sensorScaleDown() {
   earthButtonDiv.innerHTML = "Hamburg";
 
   earthButtonLabel = new CSS2DObject( earthButtonDiv );
-  earthButtonLabel.position.set(-1, 1, 0);
+  earthButtonLabel.position.set(-4, -1.5, 0);
   earthButtonDiv.addEventListener('mouseover', hamburgScaleUp, false);
   earthButtonDiv.addEventListener('mouseout', hamburgScaleDown);
   earth.add(earthButtonLabel);
@@ -517,13 +524,14 @@ function sensorScaleDown() {
   earth.polygonOffset = 0;
 
   earth.scale.set(0.5, 0.5, 0.5)
-  earth.position.set(1.4, -15, 27.5)
+  earth.position.set(1, -15, 0)
 
   ///////////////PALMAS BUTTON////////////////////
   palmasButtonDiv = document.createElement( 'div' );
   let pStyle = palmasButtonDiv.style;
   palmasButtonDiv.className = "palmas";
-  pStyle.background =  'rgb(24, 24, 24)';
+  pStyle.background =  'white';
+  pStyle.color = 'rgb(24, 24, 24)'
   pStyle.fontSize = '18px';
   pStyle.borderRadius = '15px';
   pStyle.margin = "20px";
@@ -532,7 +540,7 @@ function sensorScaleDown() {
   palmasButtonDiv.innerHTML = "Las Palmas";
 
   palmasButtonLabel = new CSS2DObject( palmasButtonDiv );
-  palmasButtonLabel.position.set(-0.965, -1, 0);
+  palmasButtonLabel.position.set(-3, -1.5, 0);
   palmasButtonDiv.addEventListener('mouseover', palmasScaleUp, false);
   palmasButtonDiv.addEventListener('mouseout', palmasScaleDown);
   earth.add(palmasButtonLabel);
@@ -585,9 +593,8 @@ function sensorScaleDown() {
     
       // bStyle.padding = '20px';
       // bStyle.fontSize = '20px'; 
-      bStyle.opacity = '0';
-      bStyle.content = 'none';
-      pStyle.opacity = '0';
+      bStyle.background = 'rgb(24, 24, 24)';
+      bStyle.color = 'white';
       pStyle.content = 'none';
       eStyle.opacity = '1';
       eStyle.content = 'normal';
@@ -597,9 +604,8 @@ function sensorScaleDown() {
   function hamburgScaleDown() {
       // bStyle.padding = '15px';
       // bStyle.fontSize = '18px'; 
-      earthButtonDiv.style.opacity = '1';
-      bStyle.content = 'normal';
-      pStyle.opacity = '1';
+      bStyle.background = 'white';
+      bStyle.color = 'rgb(24, 24, 24)';
       pStyle.content = 'normal';
       eStyle.opacity = '0';
       eStyle.content = 'none'
@@ -608,10 +614,8 @@ function sensorScaleDown() {
   function palmasScaleUp() {
       // bStyle.padding = '20px';
       // bStyle.fontSize = '20px'; 
-      pStyle.opacity = '0';
-      pStyle.content = 'none';
-      bStyle.opacity = '0';
-      bStyle.content = 'none';
+      pStyle.background = 'rgb(24, 24, 24)';
+      pStyle.color = 'white';
       peStyle.opacity = '1';
       peStyle.content = 'normal';
   }
@@ -619,10 +623,9 @@ function sensorScaleDown() {
   function palmasScaleDown() {
       // bStyle.padding = '15px';
       // bStyle.fontSize = '18px'; 
-      pStyle.opacity = '1';
-      pStyle.content = 'normal';
+      pStyle.background = 'white';
+      pStyle.color = 'rgb(24, 24, 24)';
       earthButtonDiv.style.opacity = '1';
-      bStyle.content = 'normal';
       peStyle.opacity = '0';
       peStyle.content = 'none';
   }
@@ -634,8 +637,8 @@ wifiModel = new THREE.Object3D();
   // load a resource
   WIFIloader.load('/models/wifi.obj', function ( object ) {
 
-    object.scale.set(15, 15, 15)
-    object.position.set(1, -10.4, 28)
+    object.scale.set(20, 20, 20)
+    object.position.set(1, -10.4, 0)
     object.rotation.set(0, 0, 0)
     wifiModel = object;
       scene.add( wifiModel );
@@ -663,11 +666,11 @@ wifiModel = new THREE.Object3D();
     
     model = gltf.scene;
 
-    model.position.set( 0.02, 0, 28 );
+    model.position.set( 0, 0, 0 );
     model.rotation.set(0, 0, 0);
-    model.scale.set( 0.013, 0.013, 0.013 );
+    model.scale.set( 0.015, 0.015, 0.015 );
     modelY = model.position.y
-    scene.add( model );
+    //scene.add( model );
    
 
   }, function ( xhr ) {
@@ -685,9 +688,9 @@ wifiModel = new THREE.Object3D();
     
     
     earthModel = gltf.scene;
-    earthModel.position.set( 1, -16, 28 );
+    earthModel.position.set( 1, -16, 0 );
     earthModel.rotation.set(0, 0, 0);
-    earthModel.scale.set( 1.2, 1.2, 1.2 );
+    earthModel.scale.set( 1, 1, 1 );
     earthModel.name = "EarthModel";
 
     // var earthMesh = new THREE.Mesh();
@@ -733,7 +736,69 @@ wifiModel = new THREE.Object3D();
     console.error(e);
   });
 
+  /////////////////////LOAD NEURON////////////////////////////
+  neuronModel = new THREE.Object3D();
+  loader.load('/models/neuron/scene.gltf', function (gltf) {
+    
+    
+    neuronModel = gltf.scene;
+    neuronModel.position.set( -2, -3, 0 );
+    neuronModel.scale.set(0.03, 0.03, 0.03)
+    neuronModel.name = "NeuronModel";
 
+    scene.add(neuronModel);
+
+  }, function ( xhr ) {
+
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+  }, undefined, function (e) {
+    console.error(e);
+  });
+
+  /////////////////////LOAD BOAT////////////////////////////
+  boatModel = new THREE.Object3D();
+  loader.load('/models/boat/scene.gltf', function (gltf) {
+    
+    
+    boatModel = gltf.scene;
+    boatModel.position.set( 0.5, -17.7, 1 );
+    boatModel.rotation.set(0, -1.8, 0);
+    boatModel.scale.set( 2, 2, 2 );
+    boatModel.name = "NeuronModel";
+
+    
+    scene.add(boatModel);
+
+  }, function ( xhr ) {
+
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+  }, undefined, function (e) {
+    console.error(e);
+  });
+
+  /////////////////////LOAD NEW PORT////////////////////////////
+  portModel = new THREE.Object3D();
+  loader.load('/models/port/scene.gltf', function (gltf) {
+    
+    
+    portModel = gltf.scene;
+    portModel.position.set( -0.05, -0.5, 0 );
+    portModel.rotation.set(0, -1, 0);
+    portModel.scale.set( 2, 2, 2 );
+    portModel.name = "portModel";
+
+    
+    scene.add(portModel);
+
+  }, function ( xhr ) {
+
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+  }, undefined, function (e) {
+    console.error(e);
+  });
   
 
   renderer.setClearAlpha(0)
@@ -744,7 +809,7 @@ wifiModel = new THREE.Object3D();
   // Full screen canvas
   renderer.setSize(window.innerWidth, window.innerHeight)
   document.body.appendChild(renderer.domElement)
-  camera.position.setZ(30)
+  //camera.position.setZ(30)
 
   events();
 }
@@ -987,9 +1052,9 @@ function mouseRotate() {
       //earth.rotation.y += 0.05 * ( targetX - earthModel.rotation.y );
     }
 
-    if (model) {
+    if (portModel) {
       
-      model.rotation.y += 0.05 * ( targetX - model.rotation.y );
+      //portModel.rotation.y += 0.05 * ( targetX - model.rotation.y );
     }
   }
 
@@ -1030,6 +1095,7 @@ function animate() {
   TWEEN.update();
   camera.position.y = -scrollY * 2.5 / sizes.height;
   wifiModel.rotation.y += 0.005;
+  //boatModel.rotation.y += 0.005;
   //tech.rotation.y += 0.005
   //earthModel.rotation.y += 0.0005;
   //controls.update();
