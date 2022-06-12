@@ -142,11 +142,6 @@ margin-bottom: 10px;
   width: 40%;
 }
 
-.senk3{
-  transform: translate(0, 24%);
-  width: 40%;
-}
-
 .senk4{
   transform: translate(0, 16%);
   width: 40%;
@@ -171,6 +166,11 @@ margin-bottom: 10px;
 
 #introtext  {
   transform: translate(-50%, -300%);
+}
+
+.tiltoppen {
+  text-align: right;
+  margin-right: 1rem;
 }
 
 
