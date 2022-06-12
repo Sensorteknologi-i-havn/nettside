@@ -642,7 +642,7 @@ wifiModel = new THREE.Object3D();
   // load a resource
   WIFIloader.load('/models/wifi.obj', function ( object ) {
 
-    object.scale.set(20, 20, 20)
+    object.scale.set(15, 15, 15)
     object.position.set(1, -10.4, 0)
     object.rotation.set(0, 0, 0)
     wifiModel = object;
@@ -741,13 +741,13 @@ wifiModel = new THREE.Object3D();
     console.error(e);
   });
 
-  /////////////////////LOAD NEURON////////////////////////////
+  /////////////////////LOAD LITEN PORT////////////////////////////
   neuronModel = new THREE.Object3D();
   loader.load('/models/error/scene.gltf', function (gltf) {
     
     
     neuronModel = gltf.scene;
-    neuronModel.position.set( 1, -5.5, 0 );
+    neuronModel.position.set( 1, -25.3, 0 );
     neuronModel.scale.set(1.5, 1.5, 1.5)
     neuronModel.rotation.set(0, 3.5, 0)
     neuronModel.name = "errorModel";
@@ -768,8 +768,8 @@ wifiModel = new THREE.Object3D();
     
     
     boatModel = gltf.scene;
-    boatModel.position.set( 0.5, -17.7, 1 );
-    boatModel.rotation.set(0, -1.8, 0);
+    boatModel.position.set( 0.5, -20.1, 1 );
+    boatModel.rotation.set(0, -1, 0);
     boatModel.scale.set( 2, 2, 2 );
     boatModel.name = "BoatModel";
 
@@ -854,9 +854,9 @@ wifiModel = new THREE.Object3D();
     
     
     norgeModel = gltf.scene;
-    norgeModel.scale.set(0.5, 0.5, 0.5)
+    norgeModel.scale.set(0.3, 0.3, 0.3)
     norgeModel.rotation.set(0, 0, 0)
-    norgeModel.position.set( 1.3, -12.3, 0 );
+    norgeModel.position.set( 1.2, -12.3, 0 );
     norgeModel.name = "norgeModel";
     scene.add(norgeModel)
 
@@ -868,15 +868,15 @@ wifiModel = new THREE.Object3D();
     console.error(e);
   });
 
-  /////////////////////LOAD USER////////////////////////////
+  /////////////////////LOAD CLOUD////////////////////////////
   userModel = new THREE.Object3D();
   loader.load('/models/glass/scene.gltf', function (gltf) {
     
     
     userModel = gltf.scene;
-    userModel.scale.set(0.3, 0.3, 0.3)
+    userModel.scale.set(0.05, 0.05, 0.05)
     userModel.rotation.set(0, -0.5, 0)
-    userModel.position.set( 1, -7.5, 0 );
+    userModel.position.set( -1, -8, -0.5 );
     userModel.name = "userModel";
     scene.add(userModel)
 
@@ -889,24 +889,24 @@ wifiModel = new THREE.Object3D();
   });
 
    /////////////////////LOAD EXCLAMATION POINT////////////////////////////
-  //  pointModel = new THREE.Object3D();
-  //  loader.load('/models/person/excl/scene.gltf', function (gltf) {
+   pointModel = new THREE.Object3D();
+   loader.load('/models/person/excl/scene.gltf', function (gltf) {
      
      
-  //   pointModel = gltf.scene;
-  //   pointModel.scale.set(0.01, 0.01, 0.01)
-  //   pointModel.rotation.set(0, 0, 0)
-  //   pointModel.position.set( 1.3, -7.1, 0 );
-  //   pointModel.name = "pointModel";
-  //    scene.add(pointModel)
+    pointModel = gltf.scene;
+    pointModel.scale.set(0.01, 0.01, 0.01)
+    pointModel.rotation.set(0, -0.5, 0)
+    pointModel.position.set( 1.3, -7.4, 0 );
+    pointModel.name = "pointModel";
+     scene.add(pointModel)
  
-  //  }, function ( xhr ) {
+   }, function ( xhr ) {
  
-  //    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+     console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
  
-  //  }, undefined, function (e) {
-  //    console.error(e);
-  //  });
+   }, undefined, function (e) {
+     console.error(e);
+   });
 
 
 
@@ -1166,6 +1166,14 @@ function mouseRotate() {
     if (portModel) {
       
       //portModel.rotation.y += 0.05 * ( targetX - model.rotation.y );
+    }
+
+    if(neuronModel) {
+      neuronModel.rotation.y += 0.05 * ( targetX - neuronModel.rotation.y );
+    }
+
+    if (boatModel) {
+      boatModel.rotation.y += 0.05 * ( targetX - boatModel.rotation.y );
     }
   }
 
