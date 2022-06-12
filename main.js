@@ -98,6 +98,9 @@ let tech;
 let neuronModel;
 let boatModel;
 let portModel;
+let satearthModel;
+let satelitteModel;
+let norgeModel;
  
 let offsetZ = 2;
 let offsetX = 1;
@@ -180,9 +183,9 @@ function init() {
 
 
 //////////////////STRØMANLEGG BUTTON////////////////
-stromButtonDiv = document.createElement( 'div' );
+stromButtonDiv = document.createElement( 'span' );
 let stromButtonStyle = stromButtonDiv.style;
-stromButtonDiv.className = "strom";
+stromButtonDiv.className = "strom-knapp";
 stromButtonStyle.background =  'white'; // rgb(24, 24, 24)
 stromButtonStyle.color = 'black';
 stromButtonStyle.fontSize = '18px';
@@ -194,7 +197,7 @@ stromButtonDiv.innerHTML = "Europas største <i class='fa fa-bolt'></i>";
 stromButtonDiv.style.zIndex = '99';
 
 stromButtonLabel = new CSS2DObject( stromButtonDiv );
-stromButtonLabel.position.set(0.5, -1.5, 0);
+stromButtonLabel.position.set(1, -1.5, 0);
 stromButtonDiv.addEventListener('mouseover', nasjonalScaleUp, false);
 stromButtonDiv.addEventListener('mouseout', nasjonalScaleDown);
 
@@ -205,7 +208,7 @@ strom.scale.set(0.5,0.5,0.5)
 
 
 /////////////////STROM INFO////////////////////
-StromInfoDiv = document.createElement( 'div' );
+StromInfoDiv = document.createElement( 'span' );
 let stromInfoStyle = StromInfoDiv.style;
 StromInfoDiv.setAttribute('style', 'white-space: pre;');
 StromInfoDiv.className = 'stromText';
@@ -221,14 +224,14 @@ stromInfoStyle.opacity = '0';
 StromInfoDiv.style.zIndex = '0';
 //earthDiv.style.marginTop = '-1em';
 stromInfoLabel = new CSS2DObject( StromInfoDiv );
-stromInfoLabel.position.set(1.8, 0.1, 0)
+stromInfoLabel.position.set(2.4, 0.1, 0)
 
 strom.add( stromInfoLabel );
 
 //////////////////DATASJØ BUTTON////////////////
-sjoButtonDiv = document.createElement( 'div' );
+sjoButtonDiv = document.createElement( 'span' );
 let sjoButtonStyle = sjoButtonDiv.style;
-sjoButtonDiv.className = "sjo";
+sjoButtonDiv.className = "sjo-knapp";
 sjoButtonStyle.background =  'white'; // rgb(24, 24, 24)
 sjoButtonStyle.color = 'black';
 sjoButtonStyle.fontSize = '18px';
@@ -240,7 +243,7 @@ sjoButtonDiv.innerHTML = "Datasjø <i class='fa fa-tint'></i>";
 sjoButtonDiv.style.zIndex = '99';
 
 sjoButtonLabel = new CSS2DObject( sjoButtonDiv );
-sjoButtonLabel.position.set(1.6, -1.5, 0)
+sjoButtonLabel.position.set(2.2, -1.5, 0)
 sjoButtonDiv.addEventListener('mouseover', sjoScaleUp, false);
 sjoButtonDiv.addEventListener('mouseout', sjoScaleDown);
 
@@ -249,7 +252,7 @@ strom.position.set(0, -12.5, 0)
 
 
 ///////////////DATASJØ INFO/////////////////////
-sjoInfoDiv = document.createElement( 'div' );
+sjoInfoDiv = document.createElement( 'span' );
 let sjoInfoStyle = sjoInfoDiv.style;
 sjoInfoDiv.setAttribute('style', 'white-space: pre;');
 sjoInfoDiv.className = 'sjoText';
@@ -265,15 +268,15 @@ sjoInfoStyle.opacity = '0';
 sjoInfoDiv.style.zIndex = '0';
 //earthDiv.style.marginTop = '-1em';
 sjoInfoLabel = new CSS2DObject( sjoInfoDiv );
-sjoInfoLabel.position.set(1.95, 0.3, 0)
+sjoInfoLabel.position.set(2.4, 0.3, 0)
 
 strom.add( sjoInfoLabel );
 
 
 /////////////////SENSOR BUTTON////////////////
-sensorButtonDiv = document.createElement( 'div' );
+sensorButtonDiv = document.createElement( 'span' );
 let sensorButtonStyle = sensorButtonDiv.style;
-sensorButtonDiv.className = "sensor";
+sensorButtonDiv.className = "sensor-knapp";
 sensorButtonStyle.background =  'white'; // rgb(24, 24, 24)
 sensorButtonStyle.color = 'black';
 sensorButtonStyle.fontSize = '18px';
@@ -285,14 +288,14 @@ sensorButtonDiv.innerHTML = "Sensornettverk <i class='fa fa-rss'></i>";
 sensorButtonDiv.style.zIndex = '99';
 
 sensorButtonLabel = new CSS2DObject( sensorButtonDiv );
-sensorButtonLabel.position.set(2.7, -1.5, 0);
+sensorButtonLabel.position.set(3.4, -1.5, 0);
 sensorButtonDiv.addEventListener('mouseover', sensorScaleUp, false);
 sensorButtonDiv.addEventListener('mouseout', sensorScaleDown);
 
 strom.add(sensorButtonLabel);
 
 ///////////////SENSOR INFO/////////////////////
-sensorInfoDiv = document.createElement( 'div' );
+sensorInfoDiv = document.createElement( 'span' );
 let sensorInfoStyle = sensorInfoDiv.style;
 sensorInfoDiv.setAttribute('style', 'white-space: pre;');
 sensorInfoDiv.className = 'sjoText';
@@ -308,7 +311,7 @@ sensorInfoStyle.opacity = '0';
 
 //earthDiv.style.marginTop = '-1em';
 sensorInfoLabel = new CSS2DObject( sensorInfoDiv );
-sensorInfoLabel.position.set(1.9, 0.05, 0)
+sensorInfoLabel.position.set(2.4, 0.05, 0)
 
 strom.add( sensorInfoLabel );
 
@@ -364,9 +367,9 @@ function sensorScaleDown() {
 
 /////////////////TEKNOLOGIES////////////////////////
 //////////////////KAFKA BUTTON/////////////////////
-  kafkaButtonDiv = document.createElement( 'div' );
+  kafkaButtonDiv = document.createElement( 'span' );
   let pkafkaStyle = kafkaButtonDiv.style;
-  kafkaButtonDiv.className = "kafka";
+  kafkaButtonDiv.className = "kafka-knapp";
   pkafkaStyle.background =  'white';
   pkafkaStyle.fontSize = '18px';
   pkafkaStyle.color = 'black';
@@ -385,7 +388,7 @@ function sensorScaleDown() {
   
 
   /////////////////KAFKA INFO////////////////////
-  kafkaDiv = document.createElement( 'div' );
+  kafkaDiv = document.createElement( 'span' );
   let kafkaStyle = kafkaDiv.style;
   kafkaDiv.setAttribute('style', 'white-space: pre;');
   kafkaDiv.className = 'kafkaText';
@@ -424,9 +427,9 @@ function sensorScaleDown() {
   }
 
   //////////////////TECH BUTTON/////////////////////
-  techButtonDiv = document.createElement( 'div' );
+  techButtonDiv = document.createElement( 'span' );
   let techButtonStyle = techButtonDiv.style;
-  techButtonDiv.className = "kafka";
+  techButtonDiv.className = "tech-knapp";
   techButtonStyle.background =  'white'; // rgb(24, 24, 24)
   techButtonStyle.color = 'black';
   techButtonStyle.fontSize = '18px';
@@ -445,10 +448,10 @@ function sensorScaleDown() {
   
 
   /////////////////TECH INFO////////////////////
-  techDiv = document.createElement( 'div' );
+  techDiv = document.createElement( 'span' );
   let techStyle = techDiv.style;
   techDiv.setAttribute('style', 'white-space: pre;');
-  techDiv.className = 'kafkaText';
+  techDiv.className = 'techText';
   techDiv.innerHTML = '<b>MQTT vs. OPC UA vs. APACHE KAFKA</b><br><br>';
   //earthDiv.style.fontWeight = 'bold';
   techDiv.innerHTML += 'MQTT (Message Queuing Telemetry Transport) og \r\nOPC UA (Open Platform Communications United Architecture) \r\ner “open platform” standarder for datautveksling innenfor \r\nindustri 4.0 og Industrial Internet of Things (IIOT). Et problem \r\nsom oppstår er at eldre IT-miljøer fortsatt må bli tatt i bruk, \r\nogså i industri 4.0, noe som setter begrensinger for integrering. \r\nKafka kan anses som komplementært, og ikke en konkurrent til\r\n MQTT og OPC UA. Det kan være vanskelig å vite hvilken \r\nstruktur som burde bli valgt mellom MQTT og \r\nOPC UA sammen med Kafka. Først og fremst er denne \r\ndiskusjonen kun relevant hvis har et valg.';
@@ -481,9 +484,9 @@ function sensorScaleDown() {
 
 /////////////////INTERNATIONAL//////////////////////
   ////////////HAMBURG BUTTON///////////////////
-  earthButtonDiv = document.createElement( 'div' );
+  earthButtonDiv = document.createElement( 'span' );
   let bStyle = earthButtonDiv.style;
-  earthButtonDiv.className = "hamburg";
+  earthButtonDiv.className = "hamburg-knapp";
   bStyle.background =  'white';
   bStyle.color = 'rgb(24, 24, 24)';
   bStyle.fontSize = '18px';
@@ -494,13 +497,13 @@ function sensorScaleDown() {
   earthButtonDiv.innerHTML = "Hamburg";
 
   earthButtonLabel = new CSS2DObject( earthButtonDiv );
-  earthButtonLabel.position.set(-4, -1.5, 0);
+  earthButtonLabel.position.set(-6.1, -1.5, 0);
   earthButtonDiv.addEventListener('mouseover', hamburgScaleUp, false);
   earthButtonDiv.addEventListener('mouseout', hamburgScaleDown);
   earth.add(earthButtonLabel);
 
   /////////////HAMBURG INFO/////////////////
-  earthDiv = document.createElement( 'div' );
+  earthDiv = document.createElement( 'span' );
   let eStyle = earthDiv.style;
   earthDiv.setAttribute('style', 'white-space: pre;');
   earthDiv.className = 'hamburgText';
@@ -527,9 +530,9 @@ function sensorScaleDown() {
   earth.position.set(1, -15, 0)
 
   ///////////////PALMAS BUTTON////////////////////
-  palmasButtonDiv = document.createElement( 'div' );
+  palmasButtonDiv = document.createElement( 'span' );
   let pStyle = palmasButtonDiv.style;
-  palmasButtonDiv.className = "palmas";
+  palmasButtonDiv.className = "palmas-knapp";
   pStyle.background =  'white';
   pStyle.color = 'rgb(24, 24, 24)'
   pStyle.fontSize = '18px';
@@ -540,14 +543,14 @@ function sensorScaleDown() {
   palmasButtonDiv.innerHTML = "Las Palmas";
 
   palmasButtonLabel = new CSS2DObject( palmasButtonDiv );
-  palmasButtonLabel.position.set(-3, -1.5, 0);
+  palmasButtonLabel.position.set(-5.2, -1.5, 0);
   palmasButtonDiv.addEventListener('mouseover', palmasScaleUp, false);
   palmasButtonDiv.addEventListener('mouseout', palmasScaleDown);
   earth.add(palmasButtonLabel);
 
 
   /////////////PALMAS INFO/////////////////
-  palmasInfoDiv = document.createElement( 'div' );
+  palmasInfoDiv = document.createElement( 'span' );
   let peStyle = palmasInfoDiv.style;
   palmasInfoDiv.setAttribute('style', 'white-space: pre;');
   palmasInfoDiv.className = 'palmasText';
@@ -738,13 +741,14 @@ wifiModel = new THREE.Object3D();
 
   /////////////////////LOAD NEURON////////////////////////////
   neuronModel = new THREE.Object3D();
-  loader.load('/models/neuron/scene.gltf', function (gltf) {
+  loader.load('/models/error/scene.gltf', function (gltf) {
     
     
     neuronModel = gltf.scene;
-    neuronModel.position.set( -2, -3, 0 );
-    neuronModel.scale.set(0.03, 0.03, 0.03)
-    neuronModel.name = "NeuronModel";
+    neuronModel.position.set( 1, -5.5, 0 );
+    neuronModel.scale.set(1.5, 1.5, 1.5)
+    neuronModel.rotation.set(0, 3.5, 0)
+    neuronModel.name = "errorModel";
 
     scene.add(neuronModel);
 
@@ -765,7 +769,7 @@ wifiModel = new THREE.Object3D();
     boatModel.position.set( 0.5, -17.7, 1 );
     boatModel.rotation.set(0, -1.8, 0);
     boatModel.scale.set( 2, 2, 2 );
-    boatModel.name = "NeuronModel";
+    boatModel.name = "BoatModel";
 
     
     scene.add(boatModel);
@@ -799,6 +803,71 @@ wifiModel = new THREE.Object3D();
   }, undefined, function (e) {
     console.error(e);
   });
+
+  /////////////////////LOAD satEarth////////////////////////////
+  satearthModel = new THREE.Object3D();
+  loader.load('/models/earth/scene.gltf', function (gltf) {
+    
+    
+    satearthModel = gltf.scene;
+    satearthModel.position.set( 1, -3.4, 0 );
+    satearthModel.scale.set(0.8, 0.8, 0.8)
+    satearthModel.rotation.set(0, 0, 0)
+    satearthModel.name = "satearthModel";
+    scene.add(satearthModel);
+
+  }, function ( xhr ) {
+
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+  }, undefined, function (e) {
+    console.error(e);
+  });
+
+  /////////////////////LOAD SATELITTE////////////////////////////
+  satelitteModel = new THREE.Object3D();
+  loader.load('/models/satelitte/scene.gltf', function (gltf) {
+    
+    
+    satelitteModel = gltf.scene;
+    satelitteModel.scale.set(0.00005, 0.00005, 0.00005)
+    satelitteModel.rotation.set(0, 1.5, 0)
+    satelitteModel.position.set( -1, 1, 0 );
+    satelitteModel.name = "satelitteModel";
+    satearthModel.add(satelitteModel)
+
+    //scene.add(satelitteModel);
+
+  }, function ( xhr ) {
+
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+  }, undefined, function (e) {
+    console.error(e);
+  });
+
+  /////////////////////LOAD norge////////////////////////////
+  norgeModel = new THREE.Object3D();
+  loader.load('/models/norge/scene.gltf', function (gltf) {
+    
+    
+    norgeModel = gltf.scene;
+    norgeModel.scale.set(0.5, 0.5, 0.5)
+    norgeModel.rotation.set(0, 0, 0)
+    norgeModel.position.set( 1.3, -12.3, 0 );
+    norgeModel.name = "norgeModel";
+    scene.add(norgeModel)
+
+  }, function ( xhr ) {
+
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+  }, undefined, function (e) {
+    console.error(e);
+  });
+
+
+
   
 
   renderer.setClearAlpha(0)
@@ -1095,6 +1164,8 @@ function animate() {
   TWEEN.update();
   camera.position.y = -scrollY * 2.5 / sizes.height;
   wifiModel.rotation.y += 0.005;
+  satearthModel.rotation.y += 0.01;
+
   //boatModel.rotation.y += 0.005;
   //tech.rotation.y += 0.005
   //earthModel.rotation.y += 0.0005;
