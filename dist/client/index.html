@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.min.js"></script>
+    
+    <title>Sensorteknologi</title>
+      
+  </head>
+  <body>
+
+     
+      <script type="module" src="./accordion.js"></script>
+      <script type="module" src="./main.js"></script>
+      <script type="module" src="./dot-menu.js"></script>
+       <canvas id = "bg" ></canvas> 
+      <main>
+      
+      
+      <div class="stop-scrolling"></div>
+      <div class="progress-bar-container">
+        <label for="progress-bar">Loading...</label>
+        <progress id="progress-bar" value="0" max="100"></progress>
+      </div>
+
+        <section class="section" id="header-content">
+
+            <!-- Navigation bar -->
+            <nav class="navbar navbar-inverse">
+              <div class="container-fluid">
+                  <a class="navbar-brand" href="#">
+                    <img src="./img/norkart_logo_neg.png" alt="" width="100" height="auto" class="d-inline-block align-text-top">
+                  </a>
+              </div>
+            </nav>
+
+            <div class="header container text-center" id="introtext">
+              <div class="row">
+                <h1 class="tittel">SENSORTEKNOLOGI I NORSKE HAVNER</h1>
+              </div>
+            </div>
+  
+              <ul class="navigation-dot">
+                <li class="dot-text selected ">
+                  <p>Forside</p></li>
+
+                <li>
+                  <p class="dot-text">Om prosjektet</p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Mål og visjon</p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Problem</p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Teknologier og rammeverk</p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Nasjonale prosjekter</p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Internasjonale prosjekter</p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Funn </p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Arendal </p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Krsitiansand </p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Stavanger </p>
+                </li>
+
+                <li>
+                  <p class="dot-text">Oslo </p>
+                </li>
+
+              </ul>
+
+        </section>
+
+        <section class="section" id="omprosjektet">
+          <div class="container" id="contenttext">
+            <div class="row">
+              <div class="col-6">
+                <h2>Om prosjektet</h2>
+                <br>
+                <h4>Digitalisering som forenkler og effektiviserer</h4>
+                <p class="a">Prosjektet sensorteknologi i havn er en prosjektsatsning mellom flere aktører, Kommunesektorens organisasjon (KS) er prosjekteier. Norkart har fått ansvar for å kartlegge brukerbehovene knyttet til sensorteknologi ved norske havner i forbindelse med det store satsningsprosjektet «Norsk digital havneinfrastruktur».</p>
+
+              </div>
+
+              <div class="col-6">
+                
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="maalogvisjon">
+          <div class="container" id="contenttext">
+            <div class="row">
+              <div class="col-6" id="neuron">
+              <h2>Prosjektets mål og visjon</h2>
+              <br>
+              <p class="a">Målet ved dette prosjektet:</p>
+              <ul>
+                <li>Styrke og effektivisere den norske havnestrukturen.</li>
+                <li>Bygge en felles plattform mellom nasjonale havner.</li>
+                <li>Bidra med hvordan norske havn har fordel i å bruke digital teknologi, med sikkerhet og fremme deres behov.</li>
+                <li>Bidra med hvordan norske havner kan lede gjennom sensordata prosesser mot en mer bærekraftig og inkluderende bransje.</li>
+                <li>Være med på å oppnå FN Bærekraftmål, mål 9, 11 og 17.</li>
+              </ul>
+              <br>
+              <p class="a">Visjonen - Norske havn skal være:</p>
+              <ol>
+                <li>Effektive</li>
+                <li>Tilpasningsdyktig</li>
+                <li>Inkluderende, internt og eksternt</li>
+              </ol>
+              </div>
+
+              <div class="col-6">
+                
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="problem">
+          <div class="container" id="contenttext">
+            <div class="row">
+              <div class="col-6">
+                <h2>Problem</h2>
+                <br>
+                <p class="a">Utfordringene i forhold til sensordata og IoT er at dataene kan bevege seg fort, uforutsigbart og kan ha kort levetid. De kan variere mye, og kan utgjøre store datamengder i volum og omfang. Fremover må vi kunne håndtere og utvikle infrastrukturer og teknologier for å kunne utnytte flyt av ikke standardiserte data fra IoT som en del av våre felles digitale økosystem.</p>
+                <br>
+                <p class="a">Våre norske havner har dermed et stort potensiale for å bli mer digitalisert. Dersom de lykkes med dette, vil norske havner ha mer effektive rutiner som både sparer dem tid og ressurser, bli mer tilpasningsdyktige med teknologien, og virke inkluderende både internt i havn, men også eksternt når data skal deles med for eksempel et innkommende skip eller dersom en elektriker skal fikse noe på havnen.</p>
+              </div>
+
+              <div class="col-6">
+                
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="techogrammeverk">
+          <div class="container" id="contenttext">
+              <div class="row">
+                <div class="col-6">
+                  <h2>Teknologier og rammeverk</h2>
+                  <br>
+                  <p class="a">Teknologien kjent som Internet of Things (IoT) eller Tingenes Internett omhandler prinsippet om at alle tingene rundt oss kan kobles sammen ved hjelp av internett. Enhetene kan koble seg opp til et slikt system og vil snakke med hverandre og omgivelser. Ofte vil større IoT-systemer benytte seg av sensorteknologi. Her vil en enhet bruke en type sensor til å produsere data og sende dette over nettverket. Tingenes internett har stort potensiale og en relevans over de fleste områder og sektorer som i helsetjenesten, husholdning, transport, infrastruktur og militære applikasjoner.</p>
+                  <br>
+                  <p class="b">Trykk på boksene for mer informasjon.</p>
+                </div>
+
+                <div class="col-6">
+                  <div class="tekText">
+                    <p class="a">
+                      Les mer om teknologiene bak IoT!
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+        </section> 
+
+        <section class="section" id="nasjonaleprosjekter">
+          <div class="container" id="contenttext">
+            <div class="row">
+              <div class="col-6">
+                <h2>Eksisterende løsninger <br>- Nasjonale prosjekter</h2>
+                <br>
+                <p class="a">På nasjonal basis er det flere prosjekter som benytter seg av sensorteknologi og tingenes internett. Disse prosjektet går over diverse sektorer og refererer til både IoT-teknologier og smartbyer. De nasjonale prosjektene befinner seg i Kristiansand og Stavanger og er en god pekepinn på hvordan teknologiene kan bidra til å forbedre.</p>
+                <br>
+                <p class="b">Trykk på boksene for mer informasjon.</p>
+                
+              </div>
+
+              <div class="col-6">
+                
+              </div>
+
+            </div>
+          </div>
+        </section> 
+
+        <section class="section" id="internasjonaleprosjekter">
+            <div class="container" id="contenttext">
+              <div class="row">
+                <div class="col-6">
+                  <h2>Eksisterende løsninger <br>- Internasjonale prosjekter</h2>
+                  <br>
+                  <p class="a">På global basis er det mange prosjekter initialisert basert på tingenes internett og sensorteknologi. Havnen i Hamburg og Las Palmas er to eksempler på hvordan havnevesenet kan dra nytte av digitalisering og økt brukt av teknologi. Disse prosjektene har hatt stor suksess og bidratt til å effektivisere logistikk, øke inntekter, skape trygge omgivelser og forbedre de respektive havnene.</p>
+                  <br>
+                  <p class="b">Trykk på boksene under for mer informasjon.</p>
+                </div>
+
+                <div class="col-6">
+                 
+                </div>
+
+              </div>
+            </div>
+        </section>  
+
+        <section class="section" id="funn">
+          <div class="container" id="contenttext">
+            <div class="row"> 
+              <div class="col-6">
+                <h2>Funn fra brukergruppen</h2>
+                <br>
+                <p class="a">Brukergruppen ved dette prosjektet er alle norske havner i Norge. For å kartlegge hvor brukerbehovet foreligger, var det nødvendig for kartleggingsteamet å kartlegge områdene. Områdene knyttet til sensorteknologi som kan både forbedres og tilrettelegges, blir sett som essensielle områder hos de ulike havnene. Kartleggingsteamet tok dermed kontakt med fire havner; Arendal, Kristiansand, Stavanger og Oslo.</p>            
+                <br>
+                <p class="a">De fire havnene har vist stor interesse for prosjektet Sensorteknologi i norske havner. Gjennom intervju, har disse bidratt med verdifull informasjon som gir en bedre forståelse på deres behov.</p>
+                <br>
+                <p class="b">For mer informasjon, les videre lenger ned.</p>
+              </div>
+
+              <div class="col-6">
+                  <img src="./img/kristiansand.jpg" class="bilde">
+              </div>
+            
+            </div>
+          </div>
+        </section>
+
+        <!-- Utvalgte funn -start -->
+        <section class="section" id="arndl-funn">
+          <div class="container" id="contenttext">
+            <div class="row"> 
+              <div class="senk1 col-6">
+                <h3>Arendal havn</h3>
+                <br>
+                <p class="a">Den nye batterifabrikken vil foreligge ved den kommersielle havnen. Dette vil føre til; økt aktivitet av gods som kommer inn og ut, økt ansettelse, mer synkronisering av det driftsmessige og mer skille på ansvarsområdene av det som regnes som havneaktivitet. Arendal havn har delvis et behov for mer åpen data som kan hjelpe logistikken med operasjoner i havnen, som lasting, lossing og fakturering kunne skjedd gjennom “one point of contact”. Ved datainnhentingsprosesser har de få sensorerdata i havnen, men har per dags dato et prosjekt gående som skulle tilrettelegge for sensorer og automatisere skipsanløp. Det ble avdekket at registreringsprosessen for en last må gå gjennom 14-18 manuelle steg, og har mange feilfaktormuligheter.</p>            
+                <br>
+                <p class="a">Arendal havn understreker mangel på nødvendig data som i havgrunnen, hvor det er få aktører som kan skanne og komme med verifisert data. De har med andre ord, behov for nøyaktige dybdemålinger, landbasert posisjonsinformasjon med maks feilmargin på 2-3 cm på plassering. Behovet ligger sterkest hos avstandssensorer som kan snakke sammen. Ettersom autonomitet var en viktig del for dem, må de være sikre på at skipene som ligger til land kan snakke med utstyret som skal drive laste og losse operasjonene, her må alt være veldig nøyaktig.</p>
+             
+              </div>
+
+              <div class="col-6">
+              </div>
+            
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="krs-funn">
+          <div class="container" id="contenttext">
+            <div class="row"> 
+              <div class="senk1 col-6">
+                <h3>Kristiansand havn</h3>
+                <br>
+                <p class="a">Kristiansand havn forklarte at de ikke har sanntidsdata når det kommer til dybdemålinger. Endringer i dybden påført av dumping av landmasser og utviding av kai har ført til at det er usikkerhet over dybdenivå flere steder. De tidligere dybdemålingene er ikke lagt til rette for eventuelt tidevann. I situasjoner som lasting av containerskip kan nøyaktige målinger påføre at det kan lastes mer, dermed spare tid og penger. En feilmåling på for eksempel 10-20 cm kan gjøre stor forskjell på hvor mye ekstra last man kan frakte, ettersom kjølen dekker et stort areal av havbunnen. Det vil da være lønnsomt for havnen å ha nøyaktige målinger på tidevann.Når det kom til kartdata mente de at de digitale kartene ikke var godt nok oppdatert.</p>            
+              </div>
+              
+              <div class="senk2 col-6">
+                <p class="a">Ettersom kaien skal utvides og deler av havnen har blitt grunnere, følte de at det burde vært et bedre system for kombinering av land- og sjøkart, slik at de kan se plasseringen av fortøyningsplasser på nye kaier samtidig som oppdatert tidevann- og havbunnmålinger var synlig. Sjøkartnull som referer til laveste astronomiske tidevann er en standard innenfor sjøkart for dybdemålinger. For Kristiansand havn er det viktig å vite hvordan tidevannet påvirker sjøkartnull til en hver tid. I Kristiansand Havn er nærmeste tidevannsmåler i Mandal. For at havnen da skal kunne estimere tidevannets påvirkning på havnedybden må de kalkulere seg frem til en verdi basert på hva målingene fra Mandal forteller.</p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="stvgr-funn">
+          <div class="container" id="contenttext">
+            <div class="row"> 
+              <div class="senk1 col-6">
+                <h3>Stavanger havn</h3>
+                <br>
+                <p class="a">Når nye skip kommer inn i Stavanger havn må de registreres via mail og legges inn i havnedatasystemet. Selve systemet er kjøpt fra Sverige. Stavanger havn ønsker at skipene skal gjøre mer av arbeidet i prosessen. Hvor de vil dele informasjonen i større grad enn det er nå. De skulle ønske det var mulig for dem at andre skulle få tilgang til data, et standardisert system, i alle havner som gjør det lettere for brukerne å vite hvor de skal. Et stort behov for dem var økt Dataflyt mellom aktører.</p>            
+                <br>
+                <p class="a">De var til dels fornøyd med eksisterende informasjon- og dataressurser. De ønsket at det skulle være mer deling av dataene. Hvis Stavanger havn har et system med visuell fremstilling av havnen som ingen andre aktører har tilgang til er det ikke noe måte å dele det på, denne delingen kunne flere dratt nytte av. De mente at det ikke kunne forventes at alle i Norge skulle bruke det samme systemet, men det viktigste var at standarden på dataene var likt, slik at man hadde en bedre standard for deling av disse dataene.</p>
+            
+              </div>
+
+              <div class="col-6">
+                </div>
+            
+            </div>
+          </div>
+        </section>
+        
+        <section class="section" id="oslo-funn">
+          <div class="container" id="contenttext">
+            <div class="row"> 
+              <div class="senk1 col-6">
+                <h3>Oslo havn</h3>
+                <br>
+                <p class="a">Oslo havn har per dags dato et større prosjekt hvor bøyeskap har fått sensorer plassert, hvis noen fjerner bøyene kan det oppstå problemer hvis noen har falt i vannet. De har mange strømmålere, vannmålere og sandfangere i kummer som samler opp sand som renner ned. De må tømmes i gjevne mellomrom. Sensorer i disse kan eliminere manuelt vedlikehold av kummen. Ved Vannstandssensorikk, har Oslo havn utplassert en sensor som viser vannstand i havnen. Oslo havn mener det er mange etater som har behov for sensorikk, et eksempel på dette, kan være som vann og avløp.</p>
+                  <br>
+                <p class="a">Oslo havn har utført kartlegging av kai og havbunn med 3D data på det meste ved havnen. De benyttet sonarteknologi, som gir høy oppløsning på dataen for mer korrekte verdier, samt manuell operasjon hvor de kjørte båter rundt for å måle.</p>            
+              </div>
+
+              <div class="senk4 col-6">
+                <p class="a">Dybdene er relativt stabile, men endrer seg noe over tid. En utfordring ved dette, er at de må ut jevnlig for å måle dybder og sjekke at det ikke har forandret seg via  mudring. Deres data er sikret i en lokal database. Oslo havn påpeker likevel at de må ha en større løsning på sikt, som kan samle all data i en datasjø. De understreker at det vil være nødvendig å bygge opp et system for å samkjøre dataene, og ser dermed behovet ved et felles system blant norske havner. En slik løsning bør likevel ikke sitte i eierskap hos kun én leverandør, som ønsker at deres kunder betaler for hver datapakke som sendes.</p>
+              <br>
+              <p class="a">Det må foreligge god kontroll rundt tilgjengeligheten, så ikke de norske havnene sitter på tusenvis av sensorer som koster noe smått per pakke.</p>
+              </div>
+            
+            </div>
+          </div>
+        </section>
+        <!-- Utvalgte funn -end -->
+
+        <!-- footer -->
+        <section class ="section-end">
+          <footer class="container-fluid">
+            <div>
+              <div class="end row">
+                <a class="norkart-footer" href="http://localhost:3000/teamet.html">Norkart</a>
+                </div>
+
+              <div class="ocean">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+              </div>
+          </div>
+          </footer>
+        </section>
+      </main>
+
+  </body>
+</html>
