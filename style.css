@@ -112,6 +112,18 @@ a, p {
   z-index: 10;
 }
 
+.bilde {
+  width:80%;
+  transform: translate(20%, 18%);
+}
+
+.tekText {
+  width: 100%;
+  height:100%;
+  position: absolute;
+  transform: translate(23%, 90%);
+}
+
 .senk {
   transform: translate(0, 35%);
   width: 40%;

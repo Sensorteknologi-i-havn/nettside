@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="./">
+
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,9 +15,9 @@
   <body>
 
      
-      <script type="module" src="/src/accordion.js"></script>
-      <script type="module" src="/src/main.js"></script>
-      <script type="module" src="/src/dot-menu.js"></script>
+      <script type="module" src="./accordion.js"></script>
+      <script type="module" src="./main.js"></script>
+      <script type="module" src="./dot-menu.js"></script>
        <canvas id = "bg" ></canvas> 
       <main>
       
@@ -34,7 +34,7 @@
             <nav class="navbar navbar-inverse">
               <div class="container-fluid">
                   <a class="navbar-brand" href="#">
-                    <img src="/img/norkart_logo_neg.png" alt="" width="100" height="auto" class="d-inline-block align-text-top">
+                    <img src="./img/norkart_logo_neg.png" alt="" width="100" height="auto" class="d-inline-block align-text-top">
                   </a>
               </div>
             </nav>
@@ -178,7 +178,11 @@
                 </div>
 
                 <div class="col-6">
-                  
+                  <div class="tekText">
+                    <p class="a">
+                      Les mer om teknologiene bak IoT!
+                    </p>
+                  </div>
                 </div>
 
               </div>
@@ -238,6 +242,7 @@
               </div>
 
               <div class="col-6">
+                  <img src="./img/kristiansand.jpg" class="bilde">
               </div>
             
             </div>
@@ -272,11 +277,11 @@
                 <br>
                 <p class="a">Kristiansand havn forklarte at de ikke har sanntidsdata når det kommer til dybdemålinger. Endringer i dybden påført av dumping av landmasser og utviding av kai har ført til at det er usikkerhet over dybdenivå flere steder. De tidligere dybdemålingene er ikke lagt til rette for eventuelt tidevann. I situasjoner som lasting av containerskip kan nøyaktige målinger påføre at det kan lastes mer, dermed spare tid og penger. En feilmåling på for eksempel 10-20 cm kan gjøre stor forskjell på hvor mye ekstra last man kan frakte, ettersom kjølen dekker et stort areal av havbunnen. Det vil da være lønnsomt for havnen å ha nøyaktige målinger på tidevann.Når det kom til kartdata mente de at de digitale kartene ikke var godt nok oppdatert.</p>            
               </div>
-
+              
               <div class="senk2 col-6">
                 <p class="a">Ettersom kaien skal utvides og deler av havnen har blitt grunnere, følte de at det burde vært et bedre system for kombinering av land- og sjøkart, slik at de kan se plasseringen av fortøyningsplasser på nye kaier samtidig som oppdatert tidevann- og havbunnmålinger var synlig. Sjøkartnull som referer til laveste astronomiske tidevann er en standard innenfor sjøkart for dybdemålinger. For Kristiansand havn er det viktig å vite hvordan tidevannet påvirker sjøkartnull til en hver tid. I Kristiansand Havn er nærmeste tidevannsmåler i Mandal. For at havnen da skal kunne estimere tidevannets påvirkning på havnedybden må de kalkulere seg frem til en verdi basert på hva målingene fra Mandal forteller.</p>
               </div>
-            
+
             </div>
           </div>
         </section>

@@ -466,7 +466,7 @@ function sensorScaleDown() {
   techDiv.style.zIndex = '10';
   //earthDiv.style.marginTop = '-1em';
   techLabel = new CSS2DObject( techDiv );
-  techLabel.position.set(-3.5, 0.2, 0)
+  techLabel.position.set(-3.5, 0, 0)
   tech.add( techLabel );
 
   function techScaleUp() {
@@ -499,7 +499,7 @@ function sensorScaleDown() {
   earthButtonDiv.innerHTML = "Hamburg";
 
   earthButtonLabel = new CSS2DObject( earthButtonDiv );
-  earthButtonLabel.position.set(-6.1, -1.5, 0);
+  earthButtonLabel.position.set(-4.9, -1.5, 0);
   earthButtonDiv.addEventListener('mouseover', hamburgScaleUp, false);
   earthButtonDiv.addEventListener('mouseout', hamburgScaleDown);
   earth.add(earthButtonLabel);
@@ -545,7 +545,7 @@ function sensorScaleDown() {
   palmasButtonDiv.innerHTML = "Las Palmas";
 
   palmasButtonLabel = new CSS2DObject( palmasButtonDiv );
-  palmasButtonLabel.position.set(-5.2, -1.5, 0);
+  palmasButtonLabel.position.set(-4, -1.5, 0);
   palmasButtonDiv.addEventListener('mouseover', palmasScaleUp, false);
   palmasButtonDiv.addEventListener('mouseout', palmasScaleDown);
   earth.add(palmasButtonLabel);
@@ -643,7 +643,7 @@ wifiModel = new THREE.Object3D();
   WIFIloader.load('/models/wifi.obj', function ( object ) {
 
     object.scale.set(15, 15, 15)
-    object.position.set(1, -10.4, 0)
+    object.position.set(1.15, -12.78, 0)
     object.rotation.set(0, 0, 0)
     wifiModel = object;
       scene.add( wifiModel );
@@ -849,24 +849,24 @@ wifiModel = new THREE.Object3D();
   });
 
   /////////////////////LOAD norge////////////////////////////
-  norgeModel = new THREE.Object3D();
-  loader.load('/models/norge/scene.gltf', function (gltf) {
+  // norgeModel = new THREE.Object3D();
+  // loader.load('/models/norge/scene.gltf', function (gltf) {
     
     
-    norgeModel = gltf.scene;
-    norgeModel.scale.set(0.3, 0.3, 0.3)
-    norgeModel.rotation.set(0, 0, 0)
-    norgeModel.position.set( 1.2, -12.3, 0 );
-    norgeModel.name = "norgeModel";
-    scene.add(norgeModel)
+  //   norgeModel = gltf.scene;
+  //   norgeModel.scale.set(0.3, 0.3, 0.3)
+  //   norgeModel.rotation.set(0, 0, 0)
+  //   norgeModel.position.set( 1.2, -12.3, 0 );
+  //   norgeModel.name = "norgeModel";
+  //   scene.add(norgeModel)
 
-  }, function ( xhr ) {
+  // }, function ( xhr ) {
 
-    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+  //   console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 
-  }, undefined, function (e) {
-    console.error(e);
-  });
+  // }, undefined, function (e) {
+  //   console.error(e);
+  // });
 
   /////////////////////LOAD CLOUD////////////////////////////
   userModel = new THREE.Object3D();
