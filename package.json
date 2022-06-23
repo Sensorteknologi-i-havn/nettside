@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
@@ -13,7 +14,6 @@
   },
   "dependencies": {
     "bootstrap-icons": "^1.8.3",
-    "gh-pages": "^4.0.0",
     "three": "^0.140.2",
     "three-mtl-loader": "^1.0.2",
     "three-obj-loader": "^1.1.3",
